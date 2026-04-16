@@ -482,6 +482,22 @@
       margin-top: -2px;
     }
     .wave-divider svg { display: block; width: 100%; }
+    .wave-divider--animated .wave-divider__track {
+      animation: wave-divider-flow 16s linear infinite;
+      transform-box: fill-box;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    @keyframes wave-divider-flow {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wave-divider--animated .wave-divider__track {
+        animation: none !important;
+        transform: none;
+      }
+    }
 
     /* ============================================================
        PROMESSES SECTION
@@ -1436,10 +1452,14 @@
   </div>
 
   <!-- Wave divider -->
-  <div class="wave-divider" aria-hidden="true">
+  <div class="wave-divider wave-divider--animated" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
-            fill="oklch(95% 0.025 10)" />
+      <g class="wave-divider__track">
+        <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
+              fill="oklch(95% 0.025 10)" />
+        <path d="M1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L1440,60 Z"
+              fill="oklch(95% 0.025 10)" />
+      </g>
     </svg>
   </div>
 
@@ -1510,10 +1530,14 @@
   </section>
 
   <!-- Wave divider -->
-  <div class="wave-divider" aria-hidden="true">
+  <div class="wave-divider wave-divider--animated" aria-hidden="true">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"
-            fill="oklch(97.5% 0.012 75)" />
+      <g class="wave-divider__track">
+        <path d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"
+              fill="oklch(97.5% 0.012 75)" />
+        <path d="M1440,30 C1680,0 1920,60 2160,30 C2400,0 2640,60 2880,30 L2880,60 L1440,60 Z"
+              fill="oklch(97.5% 0.012 75)" />
+      </g>
     </svg>
   </div>
 
@@ -1581,8 +1605,8 @@
       <!-- Coloring pages gallery -->
       <div class="product__header" style="margin-top: var(--s-10);">
         <span class="section-label reveal">À l'intérieur</span>
-        <h2 class="section-title reveal reveal-delay-1">Des illustrations pensées<br/>pour te faire sourire</h2>
-        <p style="max-width:55ch; color: var(--brown-light); margin-bottom: var(--s-7); font-size:1.05rem;" class="reveal reveal-delay-2">
+        <h2 class="section-title reveal reveal-delay-1">Des illustrations pensées<br/>pour te dépayser en douceur</h2>
+        <p style="max-width:55ch; color: var(--brown-light); margin: 0 auto var(--s-7); font-size:1.05rem;" class="reveal reveal-delay-2 ">
           Deux exemples de coloriages que tu retrouveras dans le carnet ✏️
         </p>
       </div>
@@ -1727,7 +1751,7 @@
         <ul class="footer__links">
           <li><a href="#">Mentions légales</a></li>
           <li><a href="#">Politique de confidentialité</a></li>
-          <li><a href="#">CGV</a></li>
+<!--          <li><a href="#">CGV</a></li>-->
           <li><a href="#">Contact</a></li>
         </ul>
       </div>
