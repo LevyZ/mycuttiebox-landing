@@ -36,28 +36,6 @@
       font-style: normal;
       font-display: swap;
     }
-    @font-face {
-      font-family: 'Gliker';
-      src: url('assets/fonts/Gliker-Regular.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Gliker';
-      src: url('assets/fonts/Gliker-SemiBold.woff2') format('woff2');
-      font-weight: 600;
-      font-style: normal;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: 'Gliker';
-      src: url('assets/fonts/Gliker-Bold.woff2') format('woff2');
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
-
     /* ============================================================
        TOKENS & RESET
     ============================================================ */
@@ -86,8 +64,8 @@
       --s-10:  96px;
 
       /* Type */
-      --font-title-main: 'More Sugar', 'Gliker', cursive;
-      --font-title-alt:  'Gliker', 'Nunito', sans-serif;
+      --font-title-main: 'More Sugar', cursive;
+      --font-title-alt:  'More Sugar', cursive;
       --font-body:       'Nunito', sans-serif;
 
       /* Radius */
@@ -823,6 +801,9 @@
     .creator__photo--white-bg {
       background: white;
     }
+    .creator__photo--brand-bg {
+      background: #e94459;
+    }
     .creator__photo:hover { transform: scale(1.03) rotate(1deg); }
     .creator__photo img {
       width: 100%;
@@ -838,22 +819,6 @@
       min-height: 180px;
     }
     .creator__photo--studio img { object-position: center; }
-
-    .creator__name-badge {
-      position: absolute;
-      bottom: -16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--coral);
-      color: white;
-      font-family: var(--font-title-alt);
-      font-weight: 600;
-      font-size: 1rem;
-      padding: var(--s-3) var(--s-6);
-      border-radius: var(--r-full);
-      white-space: nowrap;
-      box-shadow: 0 6px 20px oklch(63% 0.20 18 / 0.40);
-    }
 
     .creator__content { position: relative; z-index: 1; }
 
@@ -880,6 +845,338 @@
       font-weight: 400;
       font-size: 1.8rem;
       color: var(--coral);
+    }
+
+    /* ============================================================
+       COMMUNITY SECTION
+    ============================================================ */
+    .community {
+      padding: var(--s-10) var(--s-8);
+      background: var(--yellow-pale);
+      position: relative;
+      overflow: hidden;
+    }
+    .community::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 70% at 100% 50%, oklch(93% 0.035 185 / 0.30) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .community__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-10);
+      align-items: center;
+    }
+
+    .community__photo-wrap {
+      position: relative;
+    }
+    .community__photo {
+      width: 100%;
+      border-radius: var(--r-xl);
+      box-shadow: 0 24px 60px oklch(37% 0.06 42 / 0.18);
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 4/5;
+    }
+    .community__photo-badge {
+      position: absolute;
+      bottom: -14px;
+      right: var(--s-7);
+      background: white;
+      border-radius: var(--r-lg);
+      padding: var(--s-4) var(--s-6);
+      box-shadow: 0 8px 24px oklch(37% 0.06 42 / 0.12);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+    }
+
+    .community__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .community__text {
+      font-size: 1.05rem;
+      color: var(--brown-light);
+      line-height: 1.75;
+      max-width: 44ch;
+      margin-bottom: var(--s-8);
+    }
+
+    .community__socials {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-4);
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: var(--s-5);
+      background: white;
+      border-radius: var(--r-lg);
+      padding: var(--s-5) var(--s-6);
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.25s ease;
+      box-shadow: 0 4px 16px oklch(37% 0.06 42 / 0.07);
+    }
+    .social-card:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 28px oklch(37% 0.06 42 / 0.13);
+    }
+
+    .social-card__icon {
+      width: 46px; height: 46px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.4rem;
+    }
+    .social-card__icon--insta  { background: oklch(88% 0.07 18 / 0.25); }
+    .social-card__icon--tiktok { background: oklch(93% 0.035 185 / 0.35); }
+    .social-card__icon--etsy   { background: oklch(93% 0.065 90 / 0.45); }
+
+    .social-card__info {
+      flex: 1;
+    }
+    .social-card__name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--brown);
+      margin-bottom: 2px;
+    }
+    .social-card__handle {
+      font-size: 0.82rem;
+      color: var(--brown-light);
+    }
+
+    .social-card__cta {
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: var(--coral);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Feed section — sous le grid */
+    .community__feed-section {
+      max-width: 1100px;
+      margin: var(--s-10) auto 0;
+    }
+
+    .content-topics {
+      margin-bottom: var(--s-8);
+    }
+    .content-topics__lead {
+      font-family: var(--font-title-main);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--brown);
+      margin-bottom: var(--s-5);
+    }
+    .content-topics__text {
+      font-size: 1.02rem;
+      color: var(--brown-light);
+      line-height: 1.8;
+      max-width: 68ch;
+    }
+    .content-topics__text strong {
+      color: var(--brown);
+      font-weight: 800;
+    }
+    .topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-4);
+    }
+    .topic-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      background: white;
+      border-radius: var(--r-full);
+      padding: var(--s-3) var(--s-6);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--brown);
+      box-shadow: 0 3px 12px oklch(37% 0.06 42 / 0.07);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .topic-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px oklch(37% 0.06 42 / 0.12);
+    }
+    .topic-pill__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .topic-pill__dot--coral  { background: var(--coral); }
+    .topic-pill__dot--mint   { background: var(--mint); }
+    .topic-pill__dot--yellow { background: oklch(78% 0.14 90); }
+    .topic-pill__dot--pink   { background: oklch(75% 0.12 10); }
+    .topic-pill__dot--brown  { background: var(--brown-light); }
+
+    /* Carousel */
+    .feed-carousel-wrap {
+      position: relative;
+    }
+    .feed-carousel {
+      display: flex;
+      gap: var(--s-5);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding-bottom: var(--s-4);
+      -webkit-overflow-scrolling: touch;
+    }
+    .feed-carousel::-webkit-scrollbar { height: 4px; }
+    .feed-carousel::-webkit-scrollbar-track { background: oklch(90% 0.03 75); border-radius: 4px; }
+    .feed-carousel::-webkit-scrollbar-thumb { background: var(--coral-light); border-radius: 4px; }
+
+    .feed-card {
+      min-width: 240px;
+      max-width: 240px;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 6px 24px oklch(37% 0.06 42 / 0.10);
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .feed-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px oklch(37% 0.06 42 / 0.16);
+    }
+    .feed-card__thumb {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+    .feed-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .feed-card:hover .feed-card__thumb img {
+      transform: scale(1.05);
+    }
+    .feed-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, oklch(20% 0.04 42 / 0.55) 0%, transparent 50%);
+    }
+    .feed-card__platform {
+      position: absolute;
+      top: var(--s-3);
+      left: var(--s-3);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: white;
+      border-radius: var(--r-full);
+      padding: 3px var(--s-3) 3px 5px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--brown);
+    }
+    .feed-card__views {
+      position: absolute;
+      bottom: var(--s-3);
+      right: var(--s-3);
+      background: oklch(20% 0.04 42 / 0.6);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px var(--s-3);
+      border-radius: var(--r-full);
+      backdrop-filter: blur(4px);
+    }
+    .feed-card__body {
+      padding: var(--s-5);
+    }
+    .feed-card__type {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--coral);
+      margin-bottom: var(--s-2);
+    }
+    .feed-card__caption {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brown);
+      line-height: 1.5;
+    }
+
+    .feed-nav-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--s-3);
+      margin-top: var(--s-6);
+    }
+    .feed-nav {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid oklch(90% 0.025 75);
+      color: var(--brown);
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .feed-nav:hover {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: white;
+      transform: scale(1.08);
+    }
+
+    .feed-note {
+      margin-top: var(--s-6);
+      font-size: 0.85rem;
+      color: var(--brown-light);
+      text-align: center;
+    }
+    .feed-note a {
+      color: var(--coral);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .community__inner {
+        grid-template-columns: 1fr;
+        gap: var(--s-8);
+      }
+      .community__photo {
+        aspect-ratio: 16/9;
+        max-height: 340px;
+      }
     }
 
     /* ============================================================
@@ -1630,16 +1927,15 @@
     <div class="creator__inner">
 
       <div class="creator__photos reveal">
-        <div class="creator__photo creator__photo--main creator__photo--white-bg">
+        <div class="creator__photo creator__photo--main creator__photo--brand-bg">
           <img src="assets/images/laetitia/portrait.png" alt="Laetitia Ziré, créatrice de MyCuttieBox" />
         </div>
         <div class="creator__photo creator__photo--studio">
           <img src="assets/images/laetitia/atelier.jpg" alt="Laetitia à son atelier, en train d'illustrer" />
         </div>
-        <div class="creator__photo creator__photo--white-bg">
-          <img src="assets/images/laetitia/portrait2.png" alt="Portrait de Laetitia Ziré" />
+        <div class="creator__photo">
+          <img src="assets/images/laetitia/portrait-dessin.jpg" alt="Laetitia en train de dessiner dans son carnet" />
         </div>
-        <div class="creator__name-badge">Laetitia Ziré ✨</div>
       </div>
 
       <div class="creator__content">
@@ -1662,6 +1958,103 @@
       </div>
 
     </div>
+  </section>
+
+  <!-- ===================== COMMUNAUTÉ ===================== -->
+  <section class="community" id="communaute">
+    <div class="community__inner">
+
+      <div class="community__photo-wrap">
+        <img
+          src="assets/images/coloriste.jpg"
+          alt="Une utilisatrice colorie une illustration MyCuttieBox Vacances Cosy"
+          class="community__photo"
+        />
+        <div class="community__photo-badge">
+          <span>🎨</span>
+          Dessiné à la main — Zéro IA
+        </div>
+      </div>
+
+      <div class="community__content">
+        <span class="section-label">Communauté</span>
+        <h2 class="section-title">Rejoins l'univers<br/>MyCuttieBox 🌸</h2>
+        <p class="community__text">
+          Des créatrices comme toi partagent déjà leurs coloriages, leurs ambiances cosy
+          et leurs moments de pause. Retrouve-nous sur les réseaux pour ne rien manquer
+          des prochaines surprises de Nana & Jee.
+        </p>
+
+        <div class="community__socials">
+          <a href="https://www.instagram.com/mycuttiebox/" target="_blank" rel="noopener" class="social-card">
+            <div class="social-card__icon social-card__icon--insta">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="17.5" cy="6.5" r="1.5" fill="var(--coral)" stroke="none"/>
+              </svg>
+            </div>
+            <div class="social-card__info">
+              <div class="social-card__name">Instagram</div>
+              <div class="social-card__handle">@mycuttiebox</div>
+            </div>
+            <span class="social-card__cta">Suivre
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.tiktok.com/@mycuttiebox" target="_blank" rel="noopener" class="social-card">
+            <div class="social-card__icon social-card__icon--tiktok">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="oklch(50% 0.08 185)">
+                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.76a4.83 4.83 0 01-1.01-.07z"/>
+              </svg>
+            </div>
+            <div class="social-card__info">
+              <div class="social-card__name">TikTok</div>
+              <div class="social-card__handle">@mycuttiebox</div>
+            </div>
+            <span class="social-card__cta">Suivre
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+
+          <a href="https://www.etsy.com/shop/MyCuttieBox" target="_blank" rel="noopener" class="social-card">
+            <div class="social-card__icon social-card__icon--etsy">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <text x="3" y="18" font-family="serif" font-weight="bold" font-size="16" fill="oklch(55% 0.10 80)">e</text>
+              </svg>
+            </div>
+            <div class="social-card__info">
+              <div class="social-card__name">Etsy</div>
+              <div class="social-card__handle">MyCuttieBox</div>
+            </div>
+            <span class="social-card__cta">Visiter
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Topics + Feed -->
+    <div class="community__feed-section">
+
+      <div class="content-topics">
+        <p class="content-topics__lead">Retrouvez l'actualité de MyCuttieBox</p>
+        <p class="content-topics__text">
+          Sur Instagram et TikTok, je partage des <strong>tutos pour créer des effets cool</strong> avec tes feutres,
+          les <strong>résultats de sondages</strong> où c'est toi qui co-conçois les prochaines box,
+          mes <strong>moments de création et process</strong> en coulisses,
+          mais aussi les <strong>coulisses de la box</strong> — de l'illustration à l'emballage.
+          Et surtout, c'est là qu'on se retrouve en vrai, en communauté 💛
+        </p>
+      </div>
+
+      <div data-behold-id="r6fawGQKhA4RGIsgKVjv"></div>
+
+    </div>
+
   </section>
 
   <!-- ===================== NEWSLETTER ===================== -->
@@ -1850,6 +2243,14 @@
     };
 
   });
+  </script>
+
+  <!-- Behold — flux Instagram dynamique -->
+  <script>
+    (function() {
+      const d=document,s=d.createElement("script");s.type="module";
+      s.src="https://w.behold.so/widget.js";d.head.append(s);
+    })();
   </script>
 
 </body>
