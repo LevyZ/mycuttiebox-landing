@@ -701,6 +701,59 @@
       flex-shrink: 0;
     }
 
+    /* Product visuals strip */
+    .product__visuals-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-5);
+      margin-bottom: var(--s-10);
+    }
+    .product__visual-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .product__visual-card__img {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--cream-deep);
+    }
+    .product__visual-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product__visual-card:hover .product__visual-card__img img {
+      transform: scale(1.06);
+    }
+    .product__visual-card__label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--brown-light);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .product__visuals-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Promesses lifestyle photo */
+    .promesses__lifestyle {
+      margin-top: var(--s-6);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      max-width: 340px;
+      box-shadow: 0 16px 40px oklch(37% 0.06 42 / 0.14);
+    }
+    .promesses__lifestyle img {
+      width: 100%;
+      display: block;
+    }
+
     /* Coloring pages gallery */
     .coloring-gallery {
       display: grid;
@@ -1155,6 +1208,14 @@
       transform: scale(1.08);
     }
 
+    @media (min-width: 901px) {
+      .behold-wrap {
+        max-height: 520px;
+        overflow: hidden;
+        border-radius: var(--r-lg);
+      }
+    }
+
     .feed-note {
       margin-top: var(--s-6);
       font-size: 0.85rem;
@@ -1312,11 +1373,11 @@
       border-bottom: 1px solid oklch(50% 0.05 42);
     }
 
-    .footer__brand img {
+    .footer__logo-wrap img {
       height: 52px;
+      display: block;
       margin-bottom: var(--s-5);
-      filter: brightness(10);
-      opacity: 0.9;
+      mix-blend-mode: screen;
     }
     .footer__tagline {
       font-size: 0.92rem;
@@ -1899,6 +1960,34 @@
         </div>
       </div>
 
+      <!-- Product visuals strip -->
+      <div class="product__visuals-strip">
+        <div class="product__visual-card">
+          <div class="product__visual-card__img">
+            <img src="assets/images/produits/box.jpg" alt="La boîte d'expédition MyCuttieBox coral" />
+          </div>
+          <span class="product__visual-card__label">La boîte 📦</span>
+        </div>
+        <div class="product__visual-card">
+          <div class="product__visual-card__img">
+            <img src="assets/images/produits/bougie.jpg" alt="Bougie Cultiver le bonheur" />
+          </div>
+          <span class="product__visual-card__label">La bougie 🕯️</span>
+        </div>
+        <div class="product__visual-card">
+          <div class="product__visual-card__img">
+            <img src="assets/images/produits/marqueur.jpg" alt="Marqueur blanc Gelly Roll Sakura" />
+          </div>
+          <span class="product__visual-card__label">Le marqueur blanc ✨</span>
+        </div>
+        <div class="product__visual-card">
+          <div class="product__visual-card__img">
+            <img src="assets/images/produits/flat-lay.jpg" alt="Contenu complet de la box MyCuttieBox" />
+          </div>
+          <span class="product__visual-card__label">Le tout ensemble 🎁</span>
+        </div>
+      </div>
+
       <!-- Coloring pages gallery -->
       <div class="product__header" style="margin-top: var(--s-10);">
         <span class="section-label reveal">À l'intérieur</span>
@@ -2051,7 +2140,9 @@
         </p>
       </div>
 
-      <div data-behold-id="r6fawGQKhA4RGIsgKVjv"></div>
+      <div class="behold-wrap">
+        <div data-behold-id="r6fawGQKhA4RGIsgKVjv"></div>
+      </div>
 
     </div>
 
@@ -2104,7 +2195,9 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__brand">
-        <img src="assets/images/logo.png" alt="MyCuttieBox" />
+        <div class="footer__logo-wrap">
+          <img src="assets/images/logo.png" alt="MyCuttieBox" />
+        </div>
         <p class="footer__tagline">
           La box de loisirs créatifs pensée pour ralentir, respirer,
           et retrouver ton âme d'enfant — avec Nana & Jee.
