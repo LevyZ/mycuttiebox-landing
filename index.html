@@ -11,6 +11,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=More+Sugar&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
 
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis smooth scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
+
   <style>
     /* ============================================================
        TOKENS & RESET
@@ -53,7 +59,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; } /* Lenis gère le smooth scroll */
 
     body {
       font-family: var(--font-body);
@@ -68,20 +74,9 @@
     button { cursor: pointer; border: none; font-family: inherit; }
 
     /* ============================================================
-       SCROLL REVEAL
+       SCROLL REVEAL — handled by GSAP, CSS classes kept for
+       HTML semantics only, no opacity/transform override
     ============================================================ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(36px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.45s; }
-    .reveal-delay-5 { transition-delay: 0.6s; }
 
     /* ============================================================
        FLOATING KEYFRAMES
@@ -1164,10 +1159,110 @@
       }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* ============================================================
+       SCROLL PROGRESS BAR
+    ============================================================ */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--coral);
+      z-index: 9999;
+      transform-origin: left;
+      border-radius: 0 var(--r-full) var(--r-full) 0;
+      box-shadow: 0 0 8px oklch(63% 0.20 18 / 0.5);
+    }
+
+    /* ============================================================
+       CUSTOM CURSOR — étoile CSS pure, zéro JS
+    ============================================================ */
+    @media (hover: hover) and (pointer: fine) {
+      body {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 2L13.2 10.8L22 12L13.2 13.2L12 22L10.8 13.2L2 12L10.8 10.8Z' fill='%23ff516d'/%3E%3C/svg%3E") 12 12, auto;
+      }
+      a, button, [role="button"] {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 2L15.4 12.6L26 14L15.4 15.4L14 26L12.6 15.4L2 14L12.6 12.6Z' fill='%23ff516d'/%3E%3C/svg%3E") 14 14, pointer;
+      }
+    }
+
+    /* ============================================================
+       SCROLL INDICATOR (hero bottom)
+    ============================================================ */
+    .scroll-hint {
+      position: absolute;
+      bottom: var(--s-7);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--s-3);
+      color: var(--brown-light);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fade-in-up 0.8s ease 2s forwards;
+    }
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .scroll-hint__line {
+      width: 1.5px;
+      height: 36px;
+      background: var(--brown-light);
+      border-radius: var(--r-full);
+      transform-origin: top;
+      animation: grow-line 1.4s ease-in-out 2.5s infinite;
+    }
+    @keyframes grow-line {
+      0%   { transform: scaleY(0); opacity: 1; }
+      60%  { transform: scaleY(1); opacity: 1; }
+      100% { transform: scaleY(1); opacity: 0; }
+    }
+
+    /* ============================================================
+       SECTION COUNT / MARQUEE BAND
+    ============================================================ */
+    .marquee-band {
+      overflow: hidden;
+      background: var(--coral);
+      padding: var(--s-4) 0;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      gap: var(--s-7);
+      animation: marquee-scroll 18s linear infinite;
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-5);
+      flex-shrink: 0;
+    }
+    .marquee-sep {
+      color: oklch(88% 0.07 18);
+      font-size: 1.2rem;
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progress-bar"></div>
 
   <!-- ===================== NAV ===================== -->
   <nav class="nav" id="main-nav">
@@ -1261,7 +1356,30 @@
         <div class="hero__box-badge">Nana & Jee 🐾</div>
       </div>
     </div>
+
+
   </section>
+
+  <!-- Marquee band -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Déconnexion douce <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Créativité sans pression <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Plaisir Cosy <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Nana & Jee <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Vacances Cosy <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Zéro IA <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Slow Life <span class="marquee-sep">✦</span></span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Déconnexion douce <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Créativité sans pression <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Plaisir Cosy <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Nana & Jee <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Vacances Cosy <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Zéro IA <span class="marquee-sep">✦</span></span>
+      <span class="marquee-item">Slow Life <span class="marquee-sep">✦</span></span>
+    </div>
+  </div>
 
   <!-- Wave divider -->
   <div class="wave-divider" aria-hidden="true">
@@ -1396,26 +1514,18 @@
         <span class="section-label reveal">À l'intérieur</span>
         <h2 class="section-title reveal reveal-delay-1">Des illustrations pensées<br/>pour te faire sourire</h2>
         <p style="max-width:55ch; color: var(--brown-light); margin-bottom: var(--s-7); font-size:1.05rem;" class="reveal reveal-delay-2">
-          Survole chaque page pour la faire passer en couleur 🎨
+          Deux exemples de coloriages que tu retrouveras dans le carnet ✏️
         </p>
       </div>
 
-      <div class="coloring-gallery">
-        <div class="coloring-card coloring-card--wide color-trigger reveal">
-          <img src="assets/images/carnet/couverture.jpg" alt="Couverture — Vacances Cosy avec Nana & Jee" />
-          <div class="coloring-card__label">Couverture — Vacances Cosy</div>
-        </div>
-        <div class="coloring-card color-trigger reveal reveal-delay-1">
+      <div class="coloring-gallery" style="grid-template-columns: 1fr 1fr;">
+        <div class="coloring-card color-trigger reveal">
           <img src="assets/images/carnet/coloriage-requin.jpg" alt="Coloriage — Requin Câlin, plongée avec Nana & Jee" />
           <div class="coloring-card__label">Le Requin Câlin 🦈</div>
         </div>
-        <div class="coloring-card color-trigger reveal reveal-delay-2">
+        <div class="coloring-card color-trigger reveal reveal-delay-1">
           <img src="assets/images/carnet/coloriage-goeland.jpg" alt="Coloriage — Le Goéland Chapardeur à la plage" />
           <div class="coloring-card__label">Le Goéland Chapardeur 🐦</div>
-        </div>
-        <div class="coloring-card coloring-card--wide color-trigger reveal reveal-delay-1">
-          <img src="assets/images/carnet/fin.jpg" alt="Dernière de couverture — Plonge dans l'univers Vacances Cosy" />
-          <div class="coloring-card__label">Dernière de couverture</div>
         </div>
       </div>
 
@@ -1567,107 +1677,85 @@
 
   <!-- ===================== SCRIPTS ===================== -->
   <script>
-    // ── Scroll: nav shadow ──────────────────────────────────────────
-    const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
+  window.addEventListener('load', () => {
 
-    // ── Mobile nav ──────────────────────────────────────────────────
-    const mobileNav    = document.getElementById('mobile-nav');
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const closeBtn     = document.getElementById('mobile-nav-close');
+    // ── GSAP : barre de progression uniquement ─────────────────────
+    gsap.registerPlugin(ScrollTrigger);
 
-    hamburgerBtn.addEventListener('click', () => mobileNav.classList.add('open'));
-    closeBtn.addEventListener('click',     () => mobileNav.classList.remove('open'));
-    mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => mobileNav.classList.remove('open'));
+    // Lenis smooth scroll
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    // Barre de progression
+    const progressBar = document.getElementById('progress-bar');
+    gsap.to(progressBar, {
+      width: '100%',
+      ease: 'none',
+      scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 0.3 },
     });
 
-    // ── Intersection Observer: scroll reveal ────────────────────────
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
+    // Nav shadow
+    const nav = document.getElementById('main-nav');
+    ScrollTrigger.create({
+      start: 40,
+      onEnter:     () => nav.classList.add('scrolled'),
+      onLeaveBack: () => nav.classList.remove('scrolled'),
+    });
+
+    document.fonts.ready.then(() => ScrollTrigger.refresh());
+
+    // ── Mobile nav ─────────────────────────────────────────────────
+    const mobileNav    = document.getElementById('mobile-nav');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const closeBtnEl   = document.getElementById('mobile-nav-close');
+    hamburgerBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+    closeBtnEl.addEventListener('click',   () => mobileNav.classList.remove('open'));
+    mobileNav.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => mobileNav.classList.remove('open'))
+    );
+
+    // ── Coloriages : color-wash (IntersectionObserver) ─────────────
+    const colorCards = document.querySelectorAll('.color-trigger');
+    const colorObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+          const i = [...colorCards].indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('color-revealed'), i * 200);
+          colorObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.2 });
+    colorCards.forEach(card => colorObs.observe(card));
 
-    revealEls.forEach(el => revealObserver.observe(el));
-
-    // ── Coloring cards: color on hover ─────────────────────────────
-    // Also color-reveal on scroll into view
-    const colorTriggers = document.querySelectorAll('.color-trigger');
-    const colorObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Stagger the color reveal
-          const idx = [...colorTriggers].indexOf(entry.target);
-          setTimeout(() => {
-            entry.target.classList.add('color-revealed');
-          }, idx * 220);
-          colorObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    colorTriggers.forEach(el => colorObserver.observe(el));
-
-    // ── Toast notification ──────────────────────────────────────────
+    // ── Toast & formulaires ────────────────────────────────────────
     const toast        = document.getElementById('toast');
     const toastMessage = document.getElementById('toast-message');
-
     function showToast(msg) {
       toastMessage.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 4000);
+      setTimeout(() => toast.classList.remove('show'), 4200);
     }
 
-    // ── Newsletter / form submit ────────────────────────────────────
-    function handleSubmit(e, formId) {
+    window.handleSubmit = function(e, formId) {
       e.preventDefault();
       const form  = document.getElementById(formId);
       const input = form.querySelector('input[type="email"]');
-      const email = input.value.trim();
-
-      if (!email) return;
-
-      // Simulate success (replace with real API call)
+      if (!input.value.trim()) return;
       input.value = '';
       showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
-
-      // Animate button
       const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = '✓ C\'est noté !';
-      btn.style.background = 'oklch(70% 0.12 155)';
-      setTimeout(() => {
-        btn.innerHTML = 'Je veux être notifié·e <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-        btn.style.background = '';
-      }, 3000);
-    }
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓ C\'est noté !';
+      setTimeout(() => { btn.innerHTML = original; }, 3200);
+    };
 
-    // ── Parallax: gentle hero floating effect on mouse move ─────────
-    const hero = document.querySelector('.hero');
-    if (hero && window.matchMedia('(min-width: 900px)').matches) {
-      hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width  - 0.5;
-        const y = (e.clientY - rect.top)  / rect.height - 0.5;
-
-        document.querySelectorAll('.deco').forEach((el, i) => {
-          const depth = (i % 3 + 1) * 6;
-          el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
-        });
-      });
-
-      hero.addEventListener('mouseleave', () => {
-        document.querySelectorAll('.deco').forEach(el => {
-          el.style.transform = '';
-        });
-      });
-    }
+  });
   </script>
 
 </body>
