@@ -482,18 +482,21 @@
       margin-top: -2px;
     }
     .wave-divider svg { display: block; width: 100%; }
-    .wave-divider--animated .wave-divider__track {
-      animation: wave-divider-flow 16s linear infinite;
-      transform-box: fill-box;
-      transform-origin: 0 0;
+    .wave-divider--animated svg {
+      width: 200%;
+      max-width: none;
+      animation: wave-divider-flow 10s linear infinite;
       will-change: transform;
+    }
+    .wave-divider__tint {
+      opacity: 0.34;
     }
     @keyframes wave-divider-flow {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .wave-divider--animated .wave-divider__track {
+      .wave-divider--animated svg {
         animation: none !important;
         transform: none;
       }
@@ -1423,7 +1426,6 @@
           alt="Nana et Jee, les mascottes kawaii de MyCuttieBox"
           class="hero__mascot"
         />
-        <div class="hero__box-badge">Nana & Jee 🐾</div>
       </div>
     </div>
 
@@ -1453,13 +1455,12 @@
 
   <!-- Wave divider -->
   <div class="wave-divider wave-divider--animated" aria-hidden="true">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <g class="wave-divider__track">
-        <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
-              fill="oklch(95% 0.025 10)" />
-        <path d="M1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L1440,60 Z"
-              fill="oklch(95% 0.025 10)" />
-      </g>
+    <svg viewBox="0 0 2880 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-divider__tint"
+            d="M0,22 C240,48 480,2 720,22 C960,48 1200,2 1440,22 C1680,48 1920,2 2160,22 C2400,48 2640,2 2880,22 L2880,60 L0,60 Z"
+            fill="oklch(93% 0.035 185)" />
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z"
+            fill="oklch(95% 0.025 10)" />
     </svg>
   </div>
 
@@ -1531,13 +1532,9 @@
 
   <!-- Wave divider -->
   <div class="wave-divider wave-divider--animated" aria-hidden="true">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <g class="wave-divider__track">
-        <path d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"
-              fill="oklch(97.5% 0.012 75)" />
-        <path d="M1440,30 C1680,0 1920,60 2160,30 C2400,0 2640,60 2880,30 L2880,60 L1440,60 Z"
-              fill="oklch(97.5% 0.012 75)" />
-      </g>
+    <svg viewBox="0 0 2880 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 C1680,0 1920,60 2160,30 C2400,0 2640,60 2880,30 L2880,60 L0,60 Z"
+            fill="oklch(97.5% 0.012 75)" />
     </svg>
   </div>
 
