@@ -6,10 +6,7 @@
   <title>MyCuttieBox — La box détente faite pour toi</title>
   <meta name="description" content="MyCuttieBox, c'est la box de loisirs créatifs pensée pour ralentir, respirer et créer sans pression. Découvrez Nana & Jee et notre premier carnet de coloriage Vacances Cosy." />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=More+Sugar&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <!-- Fonts are self-hosted in assets/fonts -->
 
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -18,6 +15,49 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" defer></script>
 
   <style>
+    @font-face {
+      font-family: 'Nunito';
+      src: url('assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+      font-weight: 200 1000;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Nunito';
+      src: url('assets/fonts/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
+      font-weight: 200 1000;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'More Sugar';
+      src: url('assets/fonts/MoreSugar-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gliker';
+      src: url('assets/fonts/Gliker-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gliker';
+      src: url('assets/fonts/Gliker-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gliker';
+      src: url('assets/fonts/Gliker-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     /* ============================================================
        TOKENS & RESET
     ============================================================ */
@@ -46,8 +86,9 @@
       --s-10:  96px;
 
       /* Type */
-      --font-display: 'More Sugar', cursive;
-      --font-body:    'Nunito', sans-serif;
+      --font-title-main: 'More Sugar', 'Gliker', cursive;
+      --font-title-alt:  'Gliker', 'Nunito', sans-serif;
+      --font-body:       'Nunito', sans-serif;
 
       /* Radius */
       --r-sm: 12px;
@@ -274,7 +315,8 @@
     }
 
     .hero__headline {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: clamp(2.8rem, 6vw, 5.2rem);
       line-height: 1.05;
       color: var(--brown);
@@ -380,7 +422,8 @@
       transform: translateX(-50%);
       background: var(--coral);
       color: white;
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 600;
       font-size: 0.95rem;
       padding: var(--s-3) var(--s-6);
       border-radius: var(--r-full);
@@ -444,7 +487,8 @@
        PROMESSES SECTION
     ============================================================ */
     .section-label {
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 700;
       font-size: 0.9rem;
       color: var(--coral);
       letter-spacing: 0.12em;
@@ -453,7 +497,8 @@
       display: block;
     }
     .section-title {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: clamp(2rem, 4vw, 3.2rem);
       color: var(--brown);
       line-height: 1.1;
@@ -529,7 +574,8 @@
     .promise-card__icon--yellow{ background: oklch(93% 0.065 90 / 0.4); }
 
     .promise-card__title {
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 600;
       font-size: 1.25rem;
       color: var(--brown);
       margin-bottom: var(--s-2);
@@ -621,7 +667,8 @@
     }
 
     .product__title {
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 700;
       font-size: clamp(2rem, 4vw, 3rem);
       color: var(--brown);
       line-height: 1.1;
@@ -777,7 +824,8 @@
       transform: translateX(-50%);
       background: var(--coral);
       color: white;
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 600;
       font-size: 1rem;
       padding: var(--s-3) var(--s-6);
       border-radius: var(--r-full);
@@ -788,7 +836,8 @@
     .creator__content { position: relative; z-index: 1; }
 
     .creator__quote {
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 600;
       font-size: clamp(1.6rem, 3vw, 2.4rem);
       color: var(--brown);
       line-height: 1.25;
@@ -805,7 +854,8 @@
     }
 
     .creator__signature {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: 1.8rem;
       color: var(--coral);
     }
@@ -859,7 +909,8 @@
     }
 
     .newsletter__title {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: clamp(2rem, 4.5vw, 3.4rem);
       color: white;
       line-height: 1.1;
@@ -956,7 +1007,8 @@
     }
 
     .footer__col-title {
-      font-family: var(--font-display);
+      font-family: var(--font-title-alt);
+      font-weight: 600;
       font-size: 1rem;
       color: white;
       margin-bottom: var(--s-5);
@@ -1062,7 +1114,8 @@
       color: var(--brown);
     }
     .mobile-nav__link {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: 2rem;
       color: var(--brown);
       transition: color 0.2s;
@@ -1244,7 +1297,8 @@
       to   { transform: translateX(-50%); }
     }
     .marquee-item {
-      font-family: var(--font-display);
+      font-family: var(--font-title-main);
+      font-weight: 400;
       font-size: 1rem;
       color: white;
       display: inline-flex;
