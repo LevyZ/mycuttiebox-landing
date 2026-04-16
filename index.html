@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyCuttieBox — La box détente faite pour toi</title>
+  <meta name="description" content="MyCuttieBox, c'est la box de loisirs créatifs pensée pour ralentir, respirer et créer sans pression. Découvrez Nana & Jee et notre premier carnet de coloriage Vacances Cosy." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=More+Sugar&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       TOKENS & RESET
+    ============================================================ */
+    :root {
+      /* Primary palette */
+      --cream:       oklch(97.5% 0.012 75);
+      --cream-deep:  oklch(95%   0.018 75);
+      --coral:       oklch(63%   0.20  18);
+      --coral-light: oklch(88%   0.07  18);
+      --brown:       oklch(37%   0.06  42);
+      --brown-light: oklch(55%   0.07  42);
+      --pink-pale:   oklch(95%   0.025 10);
+      --mint:        oklch(83%   0.07  185);
+      --mint-pale:   oklch(93%   0.035 185);
+      --yellow-pale: oklch(93%   0.065 90);
+
+      /* Spacing scale */
+      --s-2:   4px;
+      --s-3:   8px;
+      --s-4:   12px;
+      --s-5:   16px;
+      --s-6:   24px;
+      --s-7:   32px;
+      --s-8:   48px;
+      --s-9:   64px;
+      --s-10:  96px;
+
+      /* Type */
+      --font-display: 'More Sugar', cursive;
+      --font-body:    'Nunito', sans-serif;
+
+      /* Radius */
+      --r-sm: 12px;
+      --r-md: 20px;
+      --r-lg: 32px;
+      --r-xl: 48px;
+      --r-full: 9999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--cream);
+      color: var(--brown);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; font-family: inherit; }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.45s; }
+    .reveal-delay-5 { transition-delay: 0.6s; }
+
+    /* ============================================================
+       FLOATING KEYFRAMES
+    ============================================================ */
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-14px) rotate(4deg); }
+    }
+    @keyframes float-med {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-10px) rotate(-6deg); }
+    }
+    @keyframes float-fast {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%       { transform: translateY(-8px) scale(1.06); }
+    }
+    @keyframes drift {
+      0%   { transform: translate(0, 0) rotate(-2deg); }
+      33%  { transform: translate(6px, -10px) rotate(2deg); }
+      66%  { transform: translate(-4px, -6px) rotate(-3deg); }
+      100% { transform: translate(0, 0) rotate(-2deg); }
+    }
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes bounce-in {
+      0%   { transform: translateY(40px) scale(0.8); opacity: 0; }
+      60%  { transform: translateY(-8px) scale(1.04); opacity: 1; }
+      80%  { transform: translateY(4px) scale(0.98); }
+      100% { transform: none; opacity: 1; }
+    }
+    @keyframes mascot-enter {
+      0%   { transform: translateX(80px) translateY(20px) scale(0.85); opacity: 0; }
+      70%  { transform: translateX(-6px) translateY(-4px) scale(1.02); opacity: 1; }
+      100% { transform: none; opacity: 1; }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position:  200% center; }
+    }
+    @keyframes star-twinkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50%       { transform: scale(1.3) rotate(15deg); opacity: 0.7; }
+    }
+    @keyframes color-wash {
+      from { filter: grayscale(100%) brightness(1.05); }
+      to   { filter: grayscale(0%)   brightness(1); }
+    }
+    @keyframes wave {
+      0%, 100% { transform: scaleX(1) scaleY(1); }
+      50%       { transform: scaleX(1.02) scaleY(0.98); }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(1);   opacity: 0.4; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--s-4) var(--s-8);
+      background: oklch(97.5% 0.012 75 / 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid oklch(93% 0.025 75);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav.scrolled {
+      box-shadow: 0 4px 24px oklch(37% 0.06 42 / 0.08);
+    }
+    .nav__logo img {
+      height: 48px;
+      width: auto;
+      transition: transform 0.3s ease;
+    }
+    .nav__logo img:hover { transform: scale(1.06) rotate(-2deg); }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--s-7);
+      list-style: none;
+    }
+    .nav__links a {
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      color: var(--brown);
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: var(--coral);
+      border-radius: var(--r-full);
+      transition: width 0.3s ease;
+    }
+    .nav__links a:hover::after { width: 100%; }
+
+    .nav__cta {
+      background: var(--coral);
+      color: white;
+      font-weight: 800;
+      font-size: 0.88rem;
+      padding: var(--s-3) var(--s-6);
+      border-radius: var(--r-full);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px oklch(63% 0.20 18 / 0.35);
+    }
+    .nav__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px oklch(63% 0.20 18 / 0.45);
+    }
+
+    .nav__hamburger {
+      display: none;
+      background: none;
+      padding: var(--s-3);
+      border-radius: var(--r-sm);
+    }
+    .nav__hamburger svg { display: block; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: calc(80px + var(--s-9)) var(--s-8) var(--s-10);
+      overflow: hidden;
+      gap: var(--s-7);
+    }
+
+    /* Background gradient blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 30%, oklch(88% 0.07 18 / 0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 10% 70%, oklch(93% 0.035 185 / 0.40) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 100%, oklch(93% 0.065 90 / 0.30) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      background: oklch(95% 0.025 10);
+      border: 1.5px solid var(--coral-light);
+      border-radius: var(--r-full);
+      padding: var(--s-2) var(--s-5);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--brown-light);
+      margin-bottom: var(--s-6);
+      animation: bounce-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+    .hero__badge-dot {
+      width: 7px; height: 7px;
+      background: var(--coral);
+      border-radius: 50%;
+      animation: pulse-ring 1.8s ease-out infinite;
+      position: relative;
+    }
+    .hero__badge-dot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--coral);
+      animation: pulse-ring 1.8s ease-out 0.4s infinite;
+    }
+
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 1.05;
+      color: var(--brown);
+      margin-bottom: var(--s-4);
+      animation: bounce-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    }
+    .hero__headline em {
+      color: var(--coral);
+      font-style: normal;
+      display: block;
+    }
+
+    .hero__sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--brown-light);
+      max-width: 46ch;
+      line-height: 1.7;
+      margin-bottom: var(--s-8);
+      animation: bounce-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+    }
+
+    .hero__form {
+      display: flex;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+      animation: bounce-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+    }
+    .hero__input {
+      flex: 1;
+      min-width: 220px;
+      background: white;
+      border: 2px solid oklch(90% 0.025 75);
+      border-radius: var(--r-full);
+      padding: var(--s-4) var(--s-6);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--brown);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .hero__input::placeholder { color: oklch(70% 0.04 75); }
+    .hero__input:focus {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 4px oklch(63% 0.20 18 / 0.12);
+    }
+
+    .btn-coral {
+      background: var(--coral);
+      color: white;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: var(--s-4) var(--s-7);
+      border-radius: var(--r-full);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.2s ease;
+      box-shadow: 0 6px 20px oklch(63% 0.20 18 / 0.40);
+    }
+    .btn-coral:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 28px oklch(63% 0.20 18 / 0.50);
+    }
+    .btn-coral:active { transform: translateY(0) scale(0.98); }
+
+    .hero__reassurance {
+      margin-top: var(--s-5);
+      font-size: 0.82rem;
+      color: var(--brown-light);
+      display: flex;
+      align-items: center;
+      gap: var(--s-3);
+      animation: bounce-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+    }
+
+    /* Mascot column */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .hero__mascot-wrap {
+      position: relative;
+      animation: mascot-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+    }
+    .hero__mascot {
+      width: clamp(260px, 38vw, 480px);
+      height: auto;
+      filter: drop-shadow(0 20px 40px oklch(37% 0.06 42 / 0.15));
+      animation: float-slow 5s ease-in-out infinite;
+    }
+
+    /* Box mockup under mascots */
+    .hero__box-badge {
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--coral);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      padding: var(--s-3) var(--s-6);
+      border-radius: var(--r-full);
+      white-space: nowrap;
+      box-shadow: 0 6px 20px oklch(63% 0.20 18 / 0.40);
+    }
+
+    /* Floating decorations */
+    .deco {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .deco--star-blue {
+      width: clamp(36px, 5vw, 60px);
+      top: 18%;  right: 5%;
+      animation: float-slow 4s ease-in-out infinite;
+      opacity: 0.9;
+    }
+    .deco--star-yellow {
+      width: clamp(28px, 4vw, 46px);
+      top: 12%;  left: 48%;
+      animation: float-med 3.5s ease-in-out 0.5s infinite;
+    }
+    .deco--star-blue-2 {
+      width: clamp(22px, 3vw, 38px);
+      bottom: 28%; left: 42%;
+      animation: star-twinkle 2.5s ease-in-out infinite;
+      opacity: 0.7;
+    }
+    .deco--cloud {
+      width: clamp(80px, 12vw, 140px);
+      top: 10%;  right: 10%;
+      animation: drift 8s ease-in-out infinite;
+      opacity: 0.7;
+    }
+    .deco--cloud-2 {
+      width: clamp(60px, 8vw, 100px);
+      bottom: 20%; left: 3%;
+      animation: drift 10s ease-in-out 2s infinite;
+      opacity: 0.5;
+    }
+    .deco--flower {
+      width: clamp(100px, 16vw, 200px);
+      bottom: 0; left: 0;
+      animation: wave 6s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    /* Wave divider */
+    .wave-divider {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin-top: -2px;
+    }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ============================================================
+       PROMESSES SECTION
+    ============================================================ */
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      color: var(--coral);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--s-4);
+      display: block;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--brown);
+      line-height: 1.1;
+      margin-bottom: var(--s-6);
+    }
+
+    .promesses {
+      background: var(--pink-pale);
+      padding: var(--s-10) var(--s-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .promesses::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 90% 50%, oklch(93% 0.065 90 / 0.3) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .promesses__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-10);
+      align-items: center;
+    }
+
+    .promesses__header { position: relative; z-index: 1; }
+    .promesses__header .section-title { max-width: 14ch; }
+
+    .promesses__intro {
+      font-size: 1.05rem;
+      color: var(--brown-light);
+      max-width: 40ch;
+      line-height: 1.75;
+    }
+
+    .promesses__cards {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-5);
+    }
+
+    .promise-card {
+      background: white;
+      border-radius: var(--r-lg);
+      padding: var(--s-7) var(--s-7);
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--s-5);
+      align-items: start;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease;
+    }
+    .promise-card:hover {
+      transform: translateY(-4px) translateX(4px);
+      box-shadow: 0 16px 40px oklch(37% 0.06 42 / 0.10);
+    }
+
+    .promise-card__icon {
+      width: 56px; height: 56px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      flex-shrink: 0;
+    }
+    .promise-card__icon--coral { background: oklch(88% 0.07 18 / 0.3); }
+    .promise-card__icon--mint  { background: oklch(93% 0.035 185 / 0.4); }
+    .promise-card__icon--yellow{ background: oklch(93% 0.065 90 / 0.4); }
+
+    .promise-card__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--brown);
+      margin-bottom: var(--s-2);
+    }
+    .promise-card__text {
+      font-size: 0.92rem;
+      color: var(--brown-light);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       PRODUCT SECTION
+    ============================================================ */
+    .product {
+      padding: var(--s-10) var(--s-8);
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .product::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 300px;
+      background: radial-gradient(ellipse 60% 100% at 20% 0%, oklch(93% 0.035 185 / 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .product__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .product__header {
+      text-align: center;
+      margin-bottom: var(--s-9);
+    }
+
+    /* Cover big showcase */
+    .product__showcase {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--s-8);
+      align-items: center;
+      margin-bottom: var(--s-10);
+    }
+
+    .product__cover-wrap {
+      position: relative;
+    }
+    .product__cover-img {
+      width: 100%;
+      border-radius: var(--r-xl);
+      box-shadow:
+        0 4px 0 var(--coral-light),
+        0 20px 60px oklch(37% 0.06 42 / 0.2);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .product__cover-wrap:hover .product__cover-img {
+      transform: translateY(-6px) rotate(-1deg);
+    }
+
+    .product__cover-deco {
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 70px;
+      animation: float-slow 4s ease-in-out infinite;
+    }
+    .product__cover-deco-2 {
+      position: absolute;
+      bottom: -15px; left: -15px;
+      width: 55px;
+      animation: float-med 5s ease-in-out 1s infinite;
+    }
+
+    .product__info { position: relative; }
+
+    .product__tag {
+      display: inline-block;
+      background: var(--mint-pale);
+      color: oklch(50% 0.08 185);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: var(--s-2) var(--s-5);
+      border-radius: var(--r-full);
+      margin-bottom: var(--s-5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .product__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--brown);
+      line-height: 1.1;
+      margin-bottom: var(--s-5);
+    }
+
+    .product__desc {
+      font-size: 1rem;
+      color: var(--brown-light);
+      line-height: 1.8;
+      margin-bottom: var(--s-7);
+      max-width: 42ch;
+    }
+
+    .product__contents {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      margin-bottom: var(--s-7);
+    }
+    .product__item {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--brown);
+    }
+    .product__item-dot {
+      width: 10px; height: 10px;
+      background: var(--coral);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Coloring pages gallery */
+    .coloring-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-5);
+    }
+
+    .coloring-card {
+      position: relative;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 8px 30px oklch(37% 0.06 42 / 0.10);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.35s ease;
+    }
+    .coloring-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px oklch(37% 0.06 42 / 0.18);
+    }
+
+    .coloring-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      filter: grayscale(100%) brightness(1.05);
+      transition: filter 1.4s ease;
+    }
+    .coloring-card.color-revealed img {
+      filter: grayscale(0%) brightness(1);
+    }
+
+    .coloring-card__label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: oklch(37% 0.06 42 / 0.75);
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: var(--s-3) var(--s-4);
+      text-align: center;
+      backdrop-filter: blur(4px);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .coloring-card:hover .coloring-card__label {
+      transform: translateY(0);
+    }
+
+    .coloring-card--wide {
+      grid-column: span 2;
+    }
+    .coloring-card--wide img {
+      aspect-ratio: 2/1;
+    }
+
+    /* ============================================================
+       CREATOR SECTION
+    ============================================================ */
+    .creator {
+      background: var(--cream-deep);
+      padding: var(--s-10) var(--s-8);
+      position: relative;
+      overflow: hidden;
+    }
+    .creator::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse at 100% 100%, oklch(88% 0.07 18 / 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .creator__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--s-10);
+      align-items: center;
+    }
+
+    .creator__photos {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--s-4);
+    }
+
+    .creator__photo {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 12px 36px oklch(37% 0.06 42 / 0.15);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .creator__photo:hover { transform: scale(1.03) rotate(1deg); }
+    .creator__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .creator__photo--main {
+      grid-row: 1 / 3;
+      min-height: 380px;
+    }
+    .creator__photo--studio {
+      min-height: 180px;
+    }
+    .creator__photo--studio img { object-position: center; }
+
+    .creator__name-badge {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--coral);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      padding: var(--s-3) var(--s-6);
+      border-radius: var(--r-full);
+      white-space: nowrap;
+      box-shadow: 0 6px 20px oklch(63% 0.20 18 / 0.40);
+    }
+
+    .creator__content { position: relative; z-index: 1; }
+
+    .creator__quote {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--brown);
+      line-height: 1.25;
+      margin-bottom: var(--s-6);
+    }
+    .creator__quote span { color: var(--coral); }
+
+    .creator__bio {
+      font-size: 1rem;
+      color: var(--brown-light);
+      line-height: 1.8;
+      margin-bottom: var(--s-6);
+      max-width: 50ch;
+    }
+
+    .creator__signature {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--coral);
+    }
+
+    /* ============================================================
+       NEWSLETTER CTA SECTION
+    ============================================================ */
+    .newsletter {
+      padding: var(--s-10) var(--s-8);
+      background: var(--coral);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 40% 60% at 15% 50%, oklch(75% 0.20 18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 85% 50%, oklch(55% 0.20 18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .newsletter__deco-star {
+      position: absolute;
+      opacity: 0.3;
+    }
+    .newsletter__deco-star:nth-child(1) { top: 10%;  left: 8%;  width: 50px; animation: float-slow 4s ease-in-out infinite; }
+    .newsletter__deco-star:nth-child(2) { top: 15%;  right: 8%; width: 40px; animation: float-med 3.5s ease-in-out 0.5s infinite; }
+    .newsletter__deco-star:nth-child(3) { bottom: 10%; left: 15%; width: 35px; animation: star-twinkle 2.8s ease-in-out 1s infinite; }
+    .newsletter__deco-star:nth-child(4) { bottom: 20%; right: 12%; width: 55px; animation: float-slow 5s ease-in-out 0.8s infinite; }
+
+    .newsletter__mascot {
+      position: absolute;
+      bottom: 0; right: 5%;
+      width: clamp(120px, 16vw, 220px);
+      opacity: 0.9;
+      animation: float-med 4s ease-in-out infinite;
+    }
+    .newsletter__mascot--left {
+      right: auto; left: 3%;
+      transform: scaleX(-1);
+    }
+
+    .newsletter__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .newsletter__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      color: white;
+      line-height: 1.1;
+      margin-bottom: var(--s-5);
+    }
+
+    .newsletter__sub {
+      font-size: 1.05rem;
+      color: oklch(95% 0.04 18);
+      margin-bottom: var(--s-7);
+      line-height: 1.7;
+    }
+
+    .newsletter__form {
+      display: flex;
+      gap: var(--s-3);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .newsletter__input {
+      flex: 1;
+      min-width: 240px;
+      background: white;
+      border: 2.5px solid white;
+      border-radius: var(--r-full);
+      padding: var(--s-5) var(--s-7);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--brown);
+      outline: none;
+      transition: box-shadow 0.2s ease;
+    }
+    .newsletter__input::placeholder { color: oklch(70% 0.04 75); }
+    .newsletter__input:focus {
+      box-shadow: 0 0 0 4px oklch(95% 0.04 18 / 0.4);
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--coral);
+      font-weight: 800;
+      font-size: 1rem;
+      padding: var(--s-5) var(--s-8);
+      border-radius: var(--r-full);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.2s ease;
+      box-shadow: 0 6px 24px oklch(37% 0.06 42 / 0.2);
+    }
+    .btn-white:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 32px oklch(37% 0.06 42 / 0.3);
+    }
+
+    .newsletter__note {
+      margin-top: var(--s-5);
+      font-size: 0.82rem;
+      color: oklch(92% 0.04 18);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--brown);
+      color: oklch(85% 0.03 42);
+      padding: var(--s-9) var(--s-8) var(--s-7);
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--s-9);
+      padding-bottom: var(--s-8);
+      border-bottom: 1px solid oklch(50% 0.05 42);
+    }
+
+    .footer__brand img {
+      height: 52px;
+      margin-bottom: var(--s-5);
+      filter: brightness(10);
+      opacity: 0.9;
+    }
+    .footer__tagline {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: oklch(75% 0.04 42);
+      max-width: 34ch;
+    }
+
+    .footer__col-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: white;
+      margin-bottom: var(--s-5);
+    }
+    .footer__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      list-style: none;
+    }
+    .footer__links a {
+      font-size: 0.88rem;
+      color: oklch(75% 0.04 42);
+      transition: color 0.2s ease;
+    }
+    .footer__links a:hover { color: var(--coral-light); }
+
+    .footer__social {
+      display: flex;
+      gap: var(--s-4);
+      margin-top: var(--s-5);
+    }
+    .footer__social a {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: oklch(45% 0.055 42);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .footer__social a:hover {
+      background: var(--coral);
+      transform: translateY(-3px);
+    }
+
+    .footer__bottom {
+      max-width: 1100px;
+      margin: var(--s-6) auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: oklch(60% 0.04 42);
+      flex-wrap: wrap;
+      gap: var(--s-3);
+    }
+    .footer__bottom a { color: var(--coral-light); }
+    .footer__bottom a:hover { text-decoration: underline; }
+
+    /* ============================================================
+       TOAST NOTIFICATION
+    ============================================================ */
+    .toast {
+      position: fixed;
+      bottom: var(--s-7);
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--brown);
+      color: white;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: var(--s-4) var(--s-7);
+      border-radius: var(--r-full);
+      box-shadow: 0 10px 30px oklch(37% 0.06 42 / 0.3);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      white-space: nowrap;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.4s ease;
+      opacity: 0;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ============================================================
+       MOBILE NAV OVERLAY
+    ============================================================ */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--cream);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--s-7);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav__close {
+      position: absolute;
+      top: var(--s-6);
+      right: var(--s-7);
+      background: none;
+      font-size: 1.6rem;
+      color: var(--brown);
+    }
+    .mobile-nav__link {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--brown);
+      transition: color 0.2s;
+    }
+    .mobile-nav__link:hover { color: var(--coral); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: calc(72px + var(--s-8));
+        padding-bottom: var(--s-8);
+      }
+      .hero__visual {
+        order: -1;
+        padding-top: var(--s-6);
+      }
+      .hero__mascot { width: min(320px, 70vw); }
+      .hero__sub { margin: 0 auto var(--s-7); }
+      .hero__form { justify-content: center; }
+      .hero__reassurance { justify-content: center; }
+
+      .promesses__inner {
+        grid-template-columns: 1fr;
+        gap: var(--s-7);
+      }
+
+      .product__showcase {
+        grid-template-columns: 1fr;
+      }
+      .coloring-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+      .coloring-card--wide { grid-column: span 2; }
+
+      .creator__inner {
+        grid-template-columns: 1fr;
+      }
+      .creator__photos {
+        max-width: 460px;
+        margin: 0 auto;
+      }
+      .creator__photo--main { min-height: 280px; }
+      .creator__photo--studio { min-height: 130px; }
+
+      .footer__inner {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer__brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 600px) {
+      .nav { padding: var(--s-3) var(--s-5); }
+      .nav__links { display: none; }
+      .nav__hamburger { display: block; }
+      .nav__cta { display: none; }
+
+      .hero { padding-left: var(--s-5); padding-right: var(--s-5); }
+      .promesses { padding: var(--s-8) var(--s-5); }
+      .product { padding: var(--s-8) var(--s-5); }
+      .creator { padding: var(--s-8) var(--s-5); }
+      .newsletter { padding: var(--s-8) var(--s-5); }
+      .footer { padding: var(--s-8) var(--s-5) var(--s-6); }
+
+      .coloring-gallery {
+        grid-template-columns: 1fr;
+      }
+      .coloring-card--wide {
+        grid-column: span 1;
+      }
+      .coloring-card--wide img { aspect-ratio: 1; }
+
+      .footer__inner { grid-template-columns: 1fr; }
+      .footer__brand { grid-column: auto; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+
+      .newsletter__mascot { display: none; }
+      .newsletter__deco-star { display: none; }
+
+      .deco--cloud, .deco--cloud-2 { display: none; }
+      .deco--flower { width: 80px; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav" id="main-nav">
+    <a href="#" class="nav__logo" aria-label="MyCuttieBox — Accueil">
+      <img src="assets/images/logo.png" alt="MyCuttieBox logo" />
+    </a>
+    <ul class="nav__links">
+      <li><a href="#promesses">La box</a></li>
+      <li><a href="#produit">Premier produit</a></li>
+      <li><a href="#createur">La créatrice</a></li>
+    </ul>
+    <a href="#newsletter" class="nav__cta">Être notifié·e ✨</a>
+    <button class="nav__hamburger" id="hamburger-btn" aria-label="Ouvrir le menu">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <rect y="0" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
+        <rect y="6.75" width="16" height="2.5" rx="1.25" fill="var(--brown)"/>
+        <rect y="13.5" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Fermer le menu">✕</button>
+    <a href="#promesses" class="mobile-nav__link">La box</a>
+    <a href="#produit" class="mobile-nav__link">Premier produit</a>
+    <a href="#createur" class="mobile-nav__link">La créatrice</a>
+    <a href="#newsletter" class="btn-coral">Être notifié·e ✨</a>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="hero">
+
+    <!-- Decorative floating elements -->
+    <img src="assets/images/etoile_bleu_deco.png"   alt="" class="deco deco--star-blue"   aria-hidden="true" />
+    <img src="assets/images/etoile_jaune_deco.png"  alt="" class="deco deco--star-yellow"  aria-hidden="true" />
+    <img src="assets/images/etoile_bleu_deco.png"   alt="" class="deco deco--star-blue-2"  aria-hidden="true" />
+    <img src="assets/images/nuage_deco.png"          alt="" class="deco deco--cloud"         aria-hidden="true" />
+    <img src="assets/images/nuage_deco.png"          alt="" class="deco deco--cloud-2"       aria-hidden="true" />
+    <img src="assets/images/fleur_deco.png"          alt="" class="deco deco--flower"        aria-hidden="true" />
+
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        Bientôt disponible — Rejoins la liste
+      </div>
+
+      <h1 class="hero__headline">
+        Pose tout.<br/>
+        Respire.<br/>
+        <em>Crée.</em>
+      </h1>
+
+      <p class="hero__sub">
+        MyCuttieBox, c'est ta petite pause créative dans un monde qui ne s'arrête pas.
+        Une box de loisirs pensée pour ralentir, retrouver ton âme d'enfant,
+        et créer sans pression — avec Nana & Jee à tes côtés.
+      </p>
+
+      <form class="hero__form" id="hero-form" onsubmit="handleSubmit(event, 'hero-form')">
+        <input
+          type="email"
+          class="hero__input"
+          placeholder="ton.email@exemple.com"
+          required
+          aria-label="Ton adresse e-mail"
+        />
+        <button type="submit" class="btn-coral">
+          Je veux être notifié·e
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+
+      <p class="hero__reassurance">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M7 1a6 6 0 100 12A6 6 0 007 1zm-1 8.5L3.5 7l1-1L6 7.5 9.5 4l1 1L6 9.5z" fill="var(--brown-light)"/>
+        </svg>
+        Zéro spam. Juste les news MyCuttieBox. Désinscription en 1 clic.
+      </p>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__mascot-wrap">
+        <img
+          src="assets/images/nana-jee.png"
+          alt="Nana et Jee, les mascottes kawaii de MyCuttieBox"
+          class="hero__mascot"
+        />
+        <div class="hero__box-badge">Nana & Jee 🐾</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave divider -->
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z"
+            fill="oklch(95% 0.025 10)" />
+    </svg>
+  </div>
+
+  <!-- ===================== PROMESSES ===================== -->
+  <section class="promesses" id="promesses">
+    <div class="promesses__inner">
+
+      <div class="promesses__header">
+        <span class="section-label reveal">Notre promesse</span>
+        <h2 class="section-title reveal reveal-delay-1">Une box pensée pour toi 🌸</h2>
+        <p class="promesses__intro reveal reveal-delay-2">
+          Parce que tu mérites une vraie pause — loin du bruit, des notifications, des obligations.
+          MyCuttieBox, c'est un espace rien qu'à toi pour créer librement.
+        </p>
+      </div>
+
+      <div class="promesses__cards">
+        <div class="promise-card reveal reveal-delay-2">
+          <div class="promise-card__icon promise-card__icon--coral">🌙</div>
+          <div>
+            <h3 class="promise-card__title">Déconnexion douce</h3>
+            <p class="promise-card__text">
+              Un moment calme loin des réseaux, pensé pour ralentir et vivre l'instant présent.
+              Anti-scroll, anti-stress, 100 % slow life.
+            </p>
+          </div>
+        </div>
+
+        <div class="promise-card reveal reveal-delay-3">
+          <div class="promise-card__icon promise-card__icon--mint">🎨</div>
+          <div>
+            <h3 class="promise-card__title">Créativité sans pression</h3>
+            <p class="promise-card__text">
+              Tu crées sans niveau requis, sans objectif de résultat parfait.
+              Juste le plaisir, la détente, le flow — illustré à la main, zéro IA.
+            </p>
+          </div>
+        </div>
+
+        <div class="promise-card reveal reveal-delay-4">
+          <div class="promise-card__icon promise-card__icon--yellow">🎁</div>
+          <div>
+            <h3 class="promise-card__title">Plaisir cosy</h3>
+            <p class="promise-card__text">
+              Une expérience qui fait "petit cadeau à soi-même" : univers kawaii adulte,
+              goodies aux couleurs de la marque — ou à offrir avec amour.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Wave divider -->
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 L0,60 Z"
+            fill="oklch(97.5% 0.012 75)" />
+    </svg>
+  </div>
+
+  <!-- ===================== PRODUCT ===================== -->
+  <section class="product" id="produit">
+    <div class="product__inner">
+
+      <div class="product__header">
+        <span class="section-label reveal">Premier produit</span>
+        <h2 class="section-title reveal reveal-delay-1">
+          Découvrez la première box<br/>
+          <span style="color: var(--coral);">MyCuttieBox</span>
+        </h2>
+      </div>
+
+      <div class="product__showcase">
+        <div class="product__cover-wrap reveal">
+          <img
+            src="assets/images/carnet/couverture.jpg"
+            alt="Couverture du carnet de coloriage Vacances Cosy — MyCuttieBox"
+            class="product__cover-img"
+          />
+          <img src="assets/images/etoile_bleu_deco.png"  alt="" class="product__cover-deco"   aria-hidden="true" />
+          <img src="assets/images/etoile_jaune_deco.png" alt="" class="product__cover-deco-2" aria-hidden="true" />
+        </div>
+
+        <div class="product__info reveal reveal-delay-2">
+          <span class="product__tag">Édition 1 — Été 2026</span>
+          <h3 class="product__title">Vacances<br/>Cosy ☀️</h3>
+          <p class="product__desc">
+            Aux côtés de Nana et Jee, plonge dans des moments doux : plage ensoleillée,
+            siestes en hamac, balades en montagne et instants cocooning à la maison.
+            Chaque page est une escapade pour ralentir, respirer et créer, sans pression.
+            Installe-toi confortablement… et laisse-toi porter.
+          </p>
+
+          <div class="product__contents">
+            <div class="product__item">
+              <span class="product__item-dot"></span>
+              1 carnet de 15 coloriages illustrés à la main
+            </div>
+            <div class="product__item">
+              <span class="product__item-dot"></span>
+              1 bougie parfumée pour créer l'ambiance
+            </div>
+            <div class="product__item">
+              <span class="product__item-dot"></span>
+              1 marqueur blanc pour les petits effets
+            </div>
+            <div class="product__item">
+              <span class="product__item-dot"></span>
+              1 goodie aux couleurs de MyCuttieBox
+            </div>
+          </div>
+
+          <a href="#newsletter" class="btn-coral" style="display:inline-flex">
+            Être notifié·e du lancement
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Coloring pages gallery -->
+      <div class="product__header" style="margin-top: var(--s-10);">
+        <span class="section-label reveal">À l'intérieur</span>
+        <h2 class="section-title reveal reveal-delay-1">Des illustrations pensées<br/>pour te faire sourire</h2>
+        <p style="max-width:55ch; color: var(--brown-light); margin-bottom: var(--s-7); font-size:1.05rem;" class="reveal reveal-delay-2">
+          Survole chaque page pour la faire passer en couleur 🎨
+        </p>
+      </div>
+
+      <div class="coloring-gallery">
+        <div class="coloring-card coloring-card--wide color-trigger reveal">
+          <img src="assets/images/carnet/couverture.jpg" alt="Couverture — Vacances Cosy avec Nana & Jee" />
+          <div class="coloring-card__label">Couverture — Vacances Cosy</div>
+        </div>
+        <div class="coloring-card color-trigger reveal reveal-delay-1">
+          <img src="assets/images/carnet/coloriage-requin.jpg" alt="Coloriage — Requin Câlin, plongée avec Nana & Jee" />
+          <div class="coloring-card__label">Le Requin Câlin 🦈</div>
+        </div>
+        <div class="coloring-card color-trigger reveal reveal-delay-2">
+          <img src="assets/images/carnet/coloriage-goeland.jpg" alt="Coloriage — Le Goéland Chapardeur à la plage" />
+          <div class="coloring-card__label">Le Goéland Chapardeur 🐦</div>
+        </div>
+        <div class="coloring-card coloring-card--wide color-trigger reveal reveal-delay-1">
+          <img src="assets/images/carnet/fin.jpg" alt="Dernière de couverture — Plonge dans l'univers Vacances Cosy" />
+          <div class="coloring-card__label">Dernière de couverture</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== CREATOR ===================== -->
+  <section class="creator" id="createur">
+    <div class="creator__inner">
+
+      <div class="creator__photos reveal">
+        <div class="creator__photo creator__photo--main">
+          <img src="assets/images/laetitia/portrait.png" alt="Laetitia Ziré, créatrice de MyCuttieBox" />
+        </div>
+        <div class="creator__photo creator__photo--studio">
+          <img src="assets/images/laetitia/atelier.jpg" alt="Laetitia à son atelier, en train d'illustrer" />
+        </div>
+        <div class="creator__photo">
+          <img src="assets/images/laetitia/portrait2.png" alt="Portrait de Laetitia Ziré" />
+        </div>
+        <div class="creator__name-badge">Laetitia Ziré ✨</div>
+      </div>
+
+      <div class="creator__content">
+        <span class="section-label reveal">La créatrice</span>
+        <blockquote class="creator__quote reveal reveal-delay-1">
+          "J'ai créé MyCuttieBox pour <span>les moments</span> où on a juste besoin de souffler."
+        </blockquote>
+        <p class="creator__bio reveal reveal-delay-2">
+          Passionnée de créations visuelles, Laetitia a imaginé MyCuttieBox comme un petit
+          espace de douceur — un projet né d'un besoin réel : créer une activité qui détend
+          vraiment, loin des écrans, sans pression, avec de belles illustrations faites à la main.
+        </p>
+        <p class="creator__bio reveal reveal-delay-3">
+          Chaque illustration est dessinée par Laetitia elle-même : zéro IA, 100 % fait avec
+          le cœur. Nana & Jee, les deux petits pandas roux, sont ses alter-egos kawaii — ils
+          t'accompagnent dans chaque univers, chaque page, chaque box.
+        </p>
+        <div class="creator__signature reveal reveal-delay-4">Laetitia 🌸</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <section class="newsletter" id="newsletter">
+
+    <!-- Decorative stars -->
+    <img src="assets/images/etoile_bleu_deco.png"  alt="" class="newsletter__deco-star" aria-hidden="true" />
+    <img src="assets/images/etoile_jaune_deco.png" alt="" class="newsletter__deco-star" aria-hidden="true" />
+    <img src="assets/images/etoile_bleu_deco.png"  alt="" class="newsletter__deco-star" aria-hidden="true" />
+    <img src="assets/images/etoile_jaune_deco.png" alt="" class="newsletter__deco-star" aria-hidden="true" />
+
+    <!-- Mascots -->
+    <img src="assets/images/nana-jee.png" alt="" class="newsletter__mascot" aria-hidden="true" />
+
+    <div class="newsletter__inner">
+      <h2 class="newsletter__title reveal">
+        Rejoins l'univers<br/>MyCuttieBox ✨
+      </h2>
+      <p class="newsletter__sub reveal reveal-delay-1">
+        Sois la première informée du lancement, des surprises,
+        et des nouvelles aventures de Nana & Jee — directement dans ta boîte mail.
+      </p>
+
+      <form class="newsletter__form reveal reveal-delay-2" id="newsletter-form" onsubmit="handleSubmit(event, 'newsletter-form')">
+        <input
+          type="email"
+          class="newsletter__input"
+          placeholder="ton.email@exemple.com"
+          required
+          aria-label="Ton adresse e-mail pour la newsletter"
+        />
+        <button type="submit" class="btn-white">
+          Je rejoins la communauté
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+
+      <p class="newsletter__note reveal reveal-delay-3">
+        🔒 Tes données restent chez toi. Zéro spam, juste du cosy.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="assets/images/logo.png" alt="MyCuttieBox" />
+        <p class="footer__tagline">
+          La box de loisirs créatifs pensée pour ralentir, respirer,
+          et retrouver ton âme d'enfant — avec Nana & Jee.
+        </p>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/mycuttiebox/" target="_blank" rel="noopener" aria-label="Instagram MyCuttieBox">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@mycuttiebox" target="_blank" rel="noopener" aria-label="TikTok MyCuttieBox">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.76a4.83 4.83 0 01-1.01-.07z"/>
+            </svg>
+          </a>
+          <a href="https://www.etsy.com/shop/MyCuttieBox" target="_blank" rel="noopener" aria-label="Etsy MyCuttieBox" style="font-weight:800; font-size:0.85rem; letter-spacing:0.01em;">
+            Etsy
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="footer__col-title">Navigation</h3>
+        <ul class="footer__links">
+          <li><a href="#hero">Accueil</a></li>
+          <li><a href="#promesses">La box</a></li>
+          <li><a href="#produit">Premier produit</a></li>
+          <li><a href="#createur">La créatrice</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="footer__col-title">Légal</h3>
+        <ul class="footer__links">
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">CGV</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 MyCuttieBox — Tous droits réservés. Créé avec 💛 par Laetitia Ziré.</span>
+      <span>Illustrations originales — <span style="color: var(--coral-light)">Zéro IA</span> 🐾</span>
+    </div>
+  </footer>
+
+  <!-- ===================== TOAST ===================== -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span>🌸</span>
+    <span id="toast-message">Merci ! Tu seras parmi les premières à savoir 🎉</span>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    // ── Scroll: nav shadow ──────────────────────────────────────────
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Mobile nav ──────────────────────────────────────────────────
+    const mobileNav    = document.getElementById('mobile-nav');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const closeBtn     = document.getElementById('mobile-nav-close');
+
+    hamburgerBtn.addEventListener('click', () => mobileNav.classList.add('open'));
+    closeBtn.addEventListener('click',     () => mobileNav.classList.remove('open'));
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileNav.classList.remove('open'));
+    });
+
+    // ── Intersection Observer: scroll reveal ────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── Coloring cards: color on hover ─────────────────────────────
+    // Also color-reveal on scroll into view
+    const colorTriggers = document.querySelectorAll('.color-trigger');
+    const colorObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Stagger the color reveal
+          const idx = [...colorTriggers].indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('color-revealed');
+          }, idx * 220);
+          colorObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    colorTriggers.forEach(el => colorObserver.observe(el));
+
+    // ── Toast notification ──────────────────────────────────────────
+    const toast        = document.getElementById('toast');
+    const toastMessage = document.getElementById('toast-message');
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ── Newsletter / form submit ────────────────────────────────────
+    function handleSubmit(e, formId) {
+      e.preventDefault();
+      const form  = document.getElementById(formId);
+      const input = form.querySelector('input[type="email"]');
+      const email = input.value.trim();
+
+      if (!email) return;
+
+      // Simulate success (replace with real API call)
+      input.value = '';
+      showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
+
+      // Animate button
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = '✓ C\'est noté !';
+      btn.style.background = 'oklch(70% 0.12 155)';
+      setTimeout(() => {
+        btn.innerHTML = 'Je veux être notifié·e <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        btn.style.background = '';
+      }, 3000);
+    }
+
+    // ── Parallax: gentle hero floating effect on mouse move ─────────
+    const hero = document.querySelector('.hero');
+    if (hero && window.matchMedia('(min-width: 900px)').matches) {
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width  - 0.5;
+        const y = (e.clientY - rect.top)  / rect.height - 0.5;
+
+        document.querySelectorAll('.deco').forEach((el, i) => {
+          const depth = (i % 3 + 1) * 6;
+          el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+        });
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        document.querySelectorAll('.deco').forEach(el => {
+          el.style.transform = '';
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
