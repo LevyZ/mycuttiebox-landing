@@ -2260,19 +2260,41 @@
   </footer>
 
   <!-- ===================== BREVO FORM (hidden) ===================== -->
-  <div style="display:none; position:absolute; left:-9999px;" aria-hidden="true">
-    <div id="sib-form-container">
-      <div id="error-message" class="sib-form-message-panel"></div>
-      <div id="success-message" class="sib-form-message-panel"></div>
-      <form id="sib-form" method="POST"
-        action="https://7fef2a69.sibforms.com/serve/MUIFAFjjwgU0zYamn3jxWZceHHEva7_y-r1ReApo5gqaSkGgcReXCSfjhrZBuMqUaXRhZ5MDi_JOr71YJv4JuMpZfD6XEnkEv1-QgRm2qiSzddd33t3viDP_XGeI93C4-9IHRqk4Q9KFBNfS9lqdeyt6br_V4Ma6Hj_3VH9RvyLaEpByYfsl8RrVB8JFx3Bki2VYjNo3qcHzs9Kkng=="
-        data-type="subscription">
-        <input type="email" id="BREVO_EMAIL" name="EMAIL" />
-        <div class="g-recaptcha-v3" data-sitekey="6LfHWrwsAAAAAGfb-ijH6vithSi96g8YDcyhzSEl"></div>
-        <input type="text" name="email_address_check" value="" class="input--hidden">
-        <input type="hidden" name="locale" value="fr">
-        <button type="submit" id="sib-submit-btn">OK</button>
-      </form>
+  <div style="display:none; position:absolute; left:-9999px; visibility:hidden;" aria-hidden="true">
+    <div id="sib-form-container" class="sib-form-container">
+      <div id="error-message" class="sib-form-message-panel" style="font-size:16px; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949; max-width:540px;">
+        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+          <span class="sib-form-message-panel__inner-text">Nous n&#039;avons pas pu confirmer votre inscription.</span>
+        </div>
+      </div>
+      <div id="success-message" class="sib-form-message-panel" style="font-size:16px; font-family:Helvetica,sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66; max-width:540px;">
+        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+          <span class="sib-form-message-panel__inner-text">Votre inscription est confirmée.</span>
+        </div>
+      </div>
+      <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#C0CCD9; border-style:solid; direction:ltr">
+        <form id="sib-form" method="POST"
+          action="https://7fef2a69.sibforms.com/serve/MUIFAFjjwgU0zYamn3jxWZceHHEva7_y-r1ReApo5gqaSkGgcReXCSfjhrZBuMqUaXRhZ5MDi_JOr71YJv4JuMpZfD6XEnkEv1-QgRm2qiSzddd33t3viDP_XGeI93C4-9IHRqk4Q9KFBNfS9lqdeyt6br_V4Ma6Hj_3VH9RvyLaEpByYfsl8RrVB8JFx3Bki2VYjNo3qcHzs9Kkng=="
+          data-type="subscription">
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row">
+                <div class="entry__field">
+                  <input class="input" type="text" id="BREVO_EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required />
+                </div>
+              </div>
+              <label class="entry__error entry__error--primary" style="font-size:16px; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
+              <label class="entry__specification" style="font-size:12px; font-family:Helvetica,sans-serif; color:#8390A4;"></label>
+            </div>
+          </div>
+          <div class="sib-form-block" style="text-align:left">
+            <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">S&#039;INSCRIRE</button>
+          </div>
+          <div class="g-recaptcha-v3" data-sitekey="6LfHWrwsAAAAAGfb-ijH6vithSi96g8YDcyhzSEl"></div>
+          <input type="text" name="email_address_check" value="" class="input--hidden">
+          <input type="hidden" name="locale" value="fr">
+        </form>
+      </div>
     </div>
   </div>
 
