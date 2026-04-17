@@ -2253,6 +2253,23 @@
     </div>
   </footer>
 
+  <!-- ===================== BREVO FORM (hidden) ===================== -->
+  <div style="display:none; position:absolute; left:-9999px;" aria-hidden="true">
+    <div id="sib-form-container">
+      <div id="error-message" class="sib-form-message-panel"></div>
+      <div id="success-message" class="sib-form-message-panel"></div>
+      <form id="sib-form" method="POST"
+        action="https://7fef2a69.sibforms.com/serve/MUIFAFjjwgU0zYamn3jxWZceHHEva7_y-r1ReApo5gqaSkGgcReXCSfjhrZBuMqUaXRhZ5MDi_JOr71YJv4JuMpZfD6XEnkEv1-QgRm2qiSzddd33t3viDP_XGeI93C4-9IHRqk4Q9KFBNfS9lqdeyt6br_V4Ma6Hj_3VH9RvyLaEpByYfsl8RrVB8JFx3Bki2VYjNo3qcHzs9Kkng=="
+        data-type="subscription">
+        <input type="email" id="BREVO_EMAIL" name="EMAIL" />
+        <div class="g-recaptcha-v3" data-sitekey="6LfHWrwsAAAAAGfb-ijH6vithSi96g8YDcyhzSEl"></div>
+        <input type="text" name="email_address_check" value="" class="input--hidden">
+        <input type="hidden" name="locale" value="fr">
+        <button type="submit" id="sib-submit-btn">OK</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ===================== TOAST ===================== -->
   <div class="toast" id="toast" role="status" aria-live="polite">
     <span>🌸</span>
@@ -2326,21 +2343,74 @@
       setTimeout(() => toast.classList.remove('show'), 4200);
     }
 
+    // ── Brevo bridge ──────────────────────────────────────────────
+    // Watch the hidden Brevo form for success/error responses
+    const sibContainer = document.getElementById('sib-form-container');
+    if (sibContainer) {
+      new MutationObserver(() => {
+        const success = document.getElementById('success-message');
+        const error   = document.getElementById('error-message');
+        if (success && getComputedStyle(success).display !== 'none' && success.offsetParent !== null) {
+          showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
+          // reset all visible buttons
+          document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
+            btn.disabled = false;
+            btn.dataset.original && (btn.innerHTML = btn.dataset.original);
+          });
+          document.querySelectorAll('.hero__input, .newsletter__input').forEach(i => i.value = '');
+        }
+        if (error && getComputedStyle(error).display !== 'none' && error.offsetParent !== null) {
+          showToast("Une erreur s'est produite, réessaie !");
+          document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
+            btn.disabled = false;
+            btn.dataset.original && (btn.innerHTML = btn.dataset.original);
+          });
+        }
+      }).observe(sibContainer, { attributes: true, subtree: true, childList: true });
+    }
+
     window.handleSubmit = function(e, formId) {
       e.preventDefault();
       const form  = document.getElementById(formId);
       const input = form.querySelector('input[type="email"]');
-      if (!input.value.trim()) return;
-      input.value = '';
-      showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
+      const email = input.value.trim();
+      if (!email) return;
+
       const btn = form.querySelector('button[type="submit"]');
-      const original = btn.innerHTML;
-      btn.innerHTML = '✓ C\'est noté !';
-      setTimeout(() => { btn.innerHTML = original; }, 3200);
+      btn.dataset.original = btn.innerHTML;
+      btn.innerHTML = '⏳ Envoi…';
+      btn.disabled = true;
+
+      // Copy email to hidden Brevo form and submit it
+      const brevoEmail = document.getElementById('BREVO_EMAIL');
+      const sibForm    = document.getElementById('sib-form');
+      if (brevoEmail && sibForm) {
+        brevoEmail.value = email;
+        sibForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      } else {
+        // Fallback if Brevo scripts not loaded
+        showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
+        input.value = '';
+        btn.innerHTML = '✓ C\'est noté !';
+        setTimeout(() => { btn.innerHTML = btn.dataset.original; btn.disabled = false; }, 3200);
+      }
     };
 
   });
   </script>
+
+  <!-- Brevo scripts -->
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Veuillez choisir un code pays';
+    window.LOCALE = 'fr';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "Adresse email invalide.";
+    window.REQUIRED_ERROR_MESSAGE = "Ce champ est requis.";
+    window.GENERIC_INVALID_MESSAGE = "Informations invalides.";
+    window.translation = { common: { selectedList: '{quantity} liste sélectionnée', selectedLists: '{quantity} listes sélectionnées', selectedOption: '{quantity} sélectionné', selectedOptions: '{quantity} sélectionnés' } };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfHWrwsAAAAAGfb-ijH6vithSi96g8YDcyhzSEl&hl=fr" async defer></script>
 
   <!-- Behold — flux Instagram dynamique -->
   <script>
