@@ -2260,7 +2260,8 @@
   </footer>
 
   <!-- ===================== BREVO FORM (hidden) ===================== -->
-  <div style="display:none; position:absolute; left:-9999px; visibility:hidden;" aria-hidden="true">
+  <!-- NOTE: must NOT use display:none — Brevo's main.js needs live DOM access -->
+  <div style="position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; pointer-events:none;" aria-hidden="true">
     <div id="sib-form-container" class="sib-form-container">
       <div id="error-message" class="sib-form-message-panel" style="font-size:16px; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949; max-width:540px;">
         <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -2375,26 +2376,36 @@
     // Watch the hidden Brevo form for success/error responses
     const sibContainer = document.getElementById('sib-form-container');
     if (sibContainer) {
+      let brevoHandled = false; // prevent duplicate toasts
+
+      const resetVisibleForms = () => {
+        document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
+          btn.disabled = false;
+          btn.dataset.original && (btn.innerHTML = btn.dataset.original);
+        });
+      };
+
       new MutationObserver(() => {
+        if (brevoHandled) return;
         const success = document.getElementById('success-message');
         const error   = document.getElementById('error-message');
-        if (success && getComputedStyle(success).display !== 'none' && success.offsetParent !== null) {
+        // Brevo toggles display on these panels — offsetParent check removed
+        // because the container is off-screen (not display:none)
+        if (success && success.style.display !== '' && success.style.display !== 'none') {
+          brevoHandled = true;
           showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
-          // reset all visible buttons
-          document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
-            btn.disabled = false;
-            btn.dataset.original && (btn.innerHTML = btn.dataset.original);
-          });
+          resetVisibleForms();
           document.querySelectorAll('.hero__input, .newsletter__input').forEach(i => i.value = '');
+          // allow re-submission after delay
+          setTimeout(() => { brevoHandled = false; }, 5000);
         }
-        if (error && getComputedStyle(error).display !== 'none' && error.offsetParent !== null) {
+        if (error && error.style.display !== '' && error.style.display !== 'none') {
+          brevoHandled = true;
           showToast("Une erreur s'est produite, réessaie !");
-          document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
-            btn.disabled = false;
-            btn.dataset.original && (btn.innerHTML = btn.dataset.original);
-          });
+          resetVisibleForms();
+          setTimeout(() => { brevoHandled = false; }, 5000);
         }
-      }).observe(sibContainer, { attributes: true, subtree: true, childList: true });
+      }).observe(sibContainer, { attributes: true, attributeFilter: ['style'], subtree: true, childList: true });
     }
 
     window.handleSubmit = function(e, formId) {
@@ -2414,6 +2425,17 @@
       const sibForm    = document.getElementById('sib-form');
       if (brevoEmail && sibForm) {
         brevoEmail.value = email;
+        // Safety timeout: if Brevo doesn't respond in 15s, reset button
+        const safetyTimer = setTimeout(() => {
+          btn.disabled = false;
+          btn.dataset.original && (btn.innerHTML = btn.dataset.original);
+        }, 15000);
+        // Override resetVisibleForms to also clear the timer
+        const origDisabled = btn.disabled;
+        const checkReset = new MutationObserver(() => {
+          if (!btn.disabled) { clearTimeout(safetyTimer); checkReset.disconnect(); }
+        });
+        checkReset.observe(btn, { attributes: true, attributeFilter: ['disabled'] });
         sibForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       } else {
         // Fallback if Brevo scripts not loaded
