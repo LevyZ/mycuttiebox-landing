@@ -14,6 +14,30 @@
 
   <!-- Fonts are self-hosted in assets/fonts -->
 
+  <!-- Intercept Brevo's XHR to get the real HTTP response status -->
+  <script>
+    (function() {
+      const _XHR = window.XMLHttpRequest;
+      function PatchedXHR() {
+        const xhr = new _XHR();
+        const origOpen = xhr.open;
+        xhr.open = function(method, url) {
+          if (typeof url === 'string' && url.includes('sibforms.com')) {
+            xhr.addEventListener('loadend', function() {
+              document.dispatchEvent(new CustomEvent('brevo:response', {
+                detail: { status: xhr.status }
+              }));
+            });
+          }
+          return origOpen.apply(xhr, arguments);
+        };
+        return xhr;
+      }
+      PatchedXHR.prototype = _XHR.prototype;
+      window.XMLHttpRequest = PatchedXHR;
+    })();
+  </script>
+
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -2378,43 +2402,28 @@
     }
 
     // ── Brevo bridge ──────────────────────────────────────────────
-    // Watch the hidden Brevo form for success/error responses.
-    // Container is off-screen (not display:none) so Brevo's main.js
-    // can access the DOM. Panels start with display:none so Brevo
-    // can toggle them properly.
-    const sibContainer = document.getElementById('sib-form-container');
-    if (sibContainer) {
-      let brevoHandled = false;
+    // We intercept Brevo's XHR (patched in <head>) to get the real
+    // HTTP status and show our custom toast accordingly.
+    let brevoSafetyTimer = null;
 
-      const resetVisibleForms = () => {
-        document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
-          btn.disabled = false;
-          btn.dataset.original && (btn.innerHTML = btn.dataset.original);
-        });
-      };
+    const resetVisibleForms = () => {
+      document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
+        btn.disabled = false;
+        btn.dataset.original && (btn.innerHTML = btn.dataset.original);
+      });
+    };
 
-      new MutationObserver(() => {
-        if (brevoHandled) return;
-        const success = document.getElementById('success-message');
-        const error   = document.getElementById('error-message');
-        // Brevo sets inline style.display to 'flex' or 'block' on success/error
-        const successVisible = success && success.style.display && success.style.display !== 'none';
-        const errorVisible   = error   && error.style.display   && error.style.display   !== 'none';
-        if (successVisible) {
-          brevoHandled = true;
-          showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
-          resetVisibleForms();
-          document.querySelectorAll('.hero__input, .newsletter__input').forEach(i => i.value = '');
-          setTimeout(() => { brevoHandled = false; }, 5000);
-        }
-        if (errorVisible) {
-          brevoHandled = true;
-          showToast("Une erreur s'est produite, réessaie !");
-          resetVisibleForms();
-          setTimeout(() => { brevoHandled = false; }, 5000);
-        }
-      }).observe(sibContainer, { attributes: true, attributeFilter: ['style'], subtree: true, childList: true });
-    }
+    document.addEventListener('brevo:response', (e) => {
+      clearTimeout(brevoSafetyTimer);
+      const ok = e.detail.status >= 200 && e.detail.status < 300;
+      if (ok) {
+        showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
+        document.querySelectorAll('.hero__input, .newsletter__input').forEach(i => i.value = '');
+      } else {
+        showToast("Une erreur s'est produite, réessaie !");
+      }
+      resetVisibleForms();
+    });
 
     window.handleSubmit = function(e, formId) {
       e.preventDefault();
@@ -2428,24 +2437,15 @@
       btn.innerHTML = '⏳ Envoi…';
       btn.disabled = true;
 
-      // Copy email to hidden Brevo form and submit it
       const brevoEmail = document.getElementById('BREVO_EMAIL');
       const sibForm    = document.getElementById('sib-form');
       if (brevoEmail && sibForm) {
         brevoEmail.value = email;
-        // Safety timeout: if Brevo doesn't respond in 15s, reset button
-        const safetyTimer = setTimeout(() => {
-          btn.disabled = false;
-          btn.dataset.original && (btn.innerHTML = btn.dataset.original);
-        }, 15000);
-        // Clear safety timer once button is re-enabled by the observer
-        const checkReset = new MutationObserver(() => {
-          if (!btn.disabled) { clearTimeout(safetyTimer); checkReset.disconnect(); }
-        });
-        checkReset.observe(btn, { attributes: true, attributeFilter: ['disabled'] });
+        // Safety timeout: reset button if Brevo never responds
+        brevoSafetyTimer = setTimeout(() => { resetVisibleForms(); }, 15000);
         sibForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
       } else {
-        // Fallback if Brevo scripts not loaded
+        // Fallback: Brevo scripts not loaded
         showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
         input.value = '';
         btn.innerHTML = '✓ C\'est noté !';
