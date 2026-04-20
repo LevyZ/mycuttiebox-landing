@@ -2263,12 +2263,12 @@
   <!-- NOTE: must NOT use display:none — Brevo's main.js needs live DOM access -->
   <div style="position:absolute; left:-9999px; top:0; width:1px; height:1px; overflow:hidden; pointer-events:none;" aria-hidden="true">
     <div id="sib-form-container" class="sib-form-container">
-      <div id="error-message" class="sib-form-message-panel" style="font-size:16px; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949; max-width:540px;">
+      <div id="error-message" class="sib-form-message-panel" style="display:none; font-size:16px; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949; max-width:540px;">
         <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
           <span class="sib-form-message-panel__inner-text">Nous n&#039;avons pas pu confirmer votre inscription.</span>
         </div>
       </div>
-      <div id="success-message" class="sib-form-message-panel" style="font-size:16px; font-family:Helvetica,sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66; max-width:540px;">
+      <div id="success-message" class="sib-form-message-panel" style="display:none; font-size:16px; font-family:Helvetica,sans-serif; color:#085229; background-color:#e7faf0; border-radius:3px; border-color:#13ce66; max-width:540px;">
         <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
           <span class="sib-form-message-panel__inner-text">Votre inscription est confirmée.</span>
         </div>
@@ -2289,7 +2289,12 @@
             </div>
           </div>
           <div class="sib-form-block" style="text-align:left">
-            <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">S&#039;INSCRIRE</button>
+            <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.256-93.696-95.2-161.139-99.584C261.028 55.899 256 50.589 256 44.072V20.901C256 14.332 261.458 8.985 268.026 9.569c89.502 7.937 169.448 52.3 217.246 126.254 47.86 73.786 50.246 166.5 6.971 242.795-4.785 8.68-15.617 11.558-24.127 6.228z" />
+              </svg>
+              S&#039;INSCRIRE
+            </button>
           </div>
           <div class="g-recaptcha-v3" data-sitekey="6LfHWrwsAAAAAGfb-ijH6vithSi96g8YDcyhzSEl"></div>
           <input type="text" name="email_address_check" value="" class="input--hidden">
@@ -2373,10 +2378,13 @@
     }
 
     // ── Brevo bridge ──────────────────────────────────────────────
-    // Watch the hidden Brevo form for success/error responses
+    // Watch the hidden Brevo form for success/error responses.
+    // Container is off-screen (not display:none) so Brevo's main.js
+    // can access the DOM. Panels start with display:none so Brevo
+    // can toggle them properly.
     const sibContainer = document.getElementById('sib-form-container');
     if (sibContainer) {
-      let brevoHandled = false; // prevent duplicate toasts
+      let brevoHandled = false;
 
       const resetVisibleForms = () => {
         document.querySelectorAll('.hero__form button[type="submit"], .newsletter__form button[type="submit"]').forEach(btn => {
@@ -2389,17 +2397,17 @@
         if (brevoHandled) return;
         const success = document.getElementById('success-message');
         const error   = document.getElementById('error-message');
-        // Brevo toggles display on these panels — offsetParent check removed
-        // because the container is off-screen (not display:none)
-        if (success && success.style.display !== '' && success.style.display !== 'none') {
+        // Brevo sets inline style.display to 'flex' or 'block' on success/error
+        const successVisible = success && success.style.display && success.style.display !== 'none';
+        const errorVisible   = error   && error.style.display   && error.style.display   !== 'none';
+        if (successVisible) {
           brevoHandled = true;
           showToast('Merci ! Tu seras parmi les premières à savoir 🎉');
           resetVisibleForms();
           document.querySelectorAll('.hero__input, .newsletter__input').forEach(i => i.value = '');
-          // allow re-submission after delay
           setTimeout(() => { brevoHandled = false; }, 5000);
         }
-        if (error && error.style.display !== '' && error.style.display !== 'none') {
+        if (errorVisible) {
           brevoHandled = true;
           showToast("Une erreur s'est produite, réessaie !");
           resetVisibleForms();
@@ -2430,8 +2438,7 @@
           btn.disabled = false;
           btn.dataset.original && (btn.innerHTML = btn.dataset.original);
         }, 15000);
-        // Override resetVisibleForms to also clear the timer
-        const origDisabled = btn.disabled;
+        // Clear safety timer once button is re-enabled by the observer
         const checkReset = new MutationObserver(() => {
           if (!btn.disabled) { clearTimeout(safetyTimer); checkReset.disconnect(); }
         });
