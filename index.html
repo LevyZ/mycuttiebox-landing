@@ -1615,7 +1615,17 @@
       .newsletter__mascot { display: none; }
       .newsletter__deco-star { display: none; }
 
-      .deco--cloud, .deco--cloud-2 { display: none; }
+      .deco--cloud {
+        width: clamp(70px, 22vw, 120px);
+        top: 12%; right: 2%;
+        opacity: 0.55;
+      }
+      .deco--cloud-2 {
+        width: clamp(55px, 16vw, 90px);
+        bottom: auto;
+        top: 30%; left: 0%;
+        opacity: 0.40;
+      }
       .deco--flower { width: 80px; }
     }
 
