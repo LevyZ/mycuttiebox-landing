@@ -520,13 +520,22 @@
        PROMESSES SECTION
     ============================================================ */
     .section-label {
+      font-family: var(--font-title-alt);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--coral);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--s-4);
+      display: block;
+    }
+    .section-label--pill {
       font-family: var(--font-body);
       font-weight: 700;
       font-size: 0.88rem;
       color: var(--brown);
       letter-spacing: 0.04em;
       text-transform: none;
-      margin-bottom: var(--s-4);
       display: inline-block;
       border: 2px solid var(--brown);
       border-radius: var(--r-full);
@@ -1865,7 +1874,7 @@
     <div class="promesses__inner">
 
       <div class="promesses__header">
-        <span class="section-label reveal">Notre promesse</span>
+        <span class="section-label section-label--pill reveal">Notre promesse</span>
         <h2 class="section-title reveal reveal-delay-1">Une box pensée pour toi</h2>
         <p class="promesses__intro reveal reveal-delay-2">
           Parce que tu mérites une vraie pause — loin du bruit, des notifications, des obligations.
