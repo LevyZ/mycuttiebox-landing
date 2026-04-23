@@ -480,10 +480,12 @@
       opacity: 0.5;
     }
     .deco--flower {
-      width: clamp(100px, 16vw, 200px);
+      width: 100vw;
+      height: clamp(55px, 7vw, 100px);
       bottom: 0; left: 0;
-      animation: wave 6s ease-in-out infinite;
-      opacity: 0.8;
+      background: url('assets/images/fleur_deco.png') repeat-x left bottom / auto 100%;
+      animation: none;
+      opacity: 1;
     }
 
     /* Wave divider */
@@ -1628,7 +1630,9 @@
         top: 30%; left: 0%;
         opacity: 1;
       }
-      .deco--flower { width: 80px; }
+      .deco--flower {
+        height: 55px;
+      }
     }
 
     /* ============================================================
@@ -1785,7 +1789,7 @@
     <img src="assets/images/etoile_bleu_deco.png"   alt="" class="deco deco--star-blue-2"  aria-hidden="true" />
     <img src="assets/images/nuage_deco.png"          alt="" class="deco deco--cloud"         aria-hidden="true" />
     <img src="assets/images/nuage_deco.png"          alt="" class="deco deco--cloud-2"       aria-hidden="true" />
-    <img src="assets/images/fleur_deco.png"          alt="" class="deco deco--flower"        aria-hidden="true" />
+    <div class="deco deco--flower" aria-hidden="true"></div>
 
     <div class="hero__content">
       <div class="hero__badge">
@@ -1814,7 +1818,7 @@
           aria-label="Ton adresse e-mail"
         />
         <button type="submit" class="btn-coral">
-          Je veux être notifié·e 
+          Je veux être notifié·e du lancement
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
