@@ -850,81 +850,6 @@
     }
 
     /* Featured product card */
-    /* ── Coffret featured card ────────────────────────────── */
-    .coffret {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--s-5);
-      margin-bottom: var(--s-10);
-    }
-
-    /* Outer frame — photo sits here, plate is absolute inside */
-    .coffret__frame {
-      position: relative;
-      width: 100%;
-      max-width: 400px;
-      /* bottom padding: lets the plate extend below the photo */
-      padding-bottom: var(--s-7);
-    }
-
-    /* The pink plate — starts partway down so photo bleeds above */
-    .coffret__plate {
-      position: absolute;
-      top: 22%;
-      bottom: 0;
-      left: -14px;
-      right: -14px;
-      background: oklch(91% 0.05 18);
-      border-radius: 22px;
-      z-index: 0;
-    }
-
-    /* The photo — floats on top of the plate */
-    .coffret__img {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      display: block;
-      border-radius: 16px;
-      transform: rotate(-1deg);
-      filter: drop-shadow(0 10px 28px oklch(50% 0.10 18 / 0.20));
-    }
-
-    /* 4-pointed stars on the right */
-    .coffret__star {
-      position: absolute;
-      z-index: 3;
-      pointer-events: none;
-    }
-    .coffret__star--a {
-      width: 32px;
-      height: 32px;
-      top: 28%;
-      right: -22px;
-      fill: var(--coral);
-    }
-    .coffret__star--b {
-      width: 20px;
-      height: 20px;
-      top: 46%;
-      right: -10px;
-      fill: oklch(96% 0.02 18);
-    }
-
-    /* Title below the frame */
-    .coffret__title {
-      font-family: var(--font-body);
-      font-weight: 800;
-      font-size: clamp(1.25rem, 5vw, 1.55rem);
-      color: var(--brown);
-      text-align: center;
-      line-height: 1.2;
-    }
-    .coffret__title span {
-      color: var(--coral);
-    }
-
     /* Promesses lifestyle photo */
     .promesses__lifestyle {
       margin-top: var(--s-6);
@@ -2174,25 +2099,6 @@
             </svg>
           </a>
         </div>
-      </div>
-
-      <!-- Featured coffret card -->
-      <div class="coffret">
-        <div class="coffret__frame">
-          <div class="coffret__plate"></div>
-          <svg class="coffret__star coffret__star--a" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 1 L13.8 10.2 L23 12 L13.8 13.8 L12 23 L10.2 13.8 L1 12 L10.2 10.2 Z"/>
-          </svg>
-          <svg class="coffret__star coffret__star--b" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 1 L13.8 10.2 L23 12 L13.8 13.8 L12 23 L10.2 13.8 L1 12 L10.2 10.2 Z"/>
-          </svg>
-          <img
-            class="coffret__img"
-            src="assets/images/produits/boite_adulte.png"
-            alt="La box MyCuttieBox ouverte avec tout son contenu"
-          />
-        </div>
-        <p class="coffret__title">Le coffret <span>MyCuttieBox</span></p>
       </div>
 
       <!-- Product visuals strip -->
