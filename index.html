@@ -690,17 +690,30 @@
       transform: translateY(-6px) rotate(-1deg);
     }
 
+    /* deco elements around the book cover */
     .product__cover-deco {
       position: absolute;
-      top: -20px; right: -20px;
-      width: 70px;
+      pointer-events: none;
+    }
+    .product__cover-deco--star {
+      top: -22px; right: -22px;
+      width: 60px;
       animation: float-slow 4s ease-in-out infinite;
     }
-    .product__cover-deco-2 {
-      position: absolute;
-      bottom: -15px; left: -15px;
-      width: 55px;
-      animation: float-med 5s ease-in-out 1s infinite;
+    .product__cover-deco--shell-1 {
+      bottom: -22px; left: -28px;
+      width: 72px;
+      animation: float-med 5s ease-in-out 0.5s infinite;
+    }
+    .product__cover-deco--shell-2 {
+      top: 10%; left: -36px;
+      width: 62px;
+      animation: float-slow 6s ease-in-out 1s infinite;
+    }
+    .product__cover-deco--flower {
+      bottom: 10%; right: -32px;
+      width: 66px;
+      animation: float-med 4.5s ease-in-out 1.5s infinite;
     }
 
     .product__info { position: relative; }
@@ -1991,8 +2004,10 @@
             alt="Couverture du carnet de coloriage Vacances Cosy — MyCuttieBox"
             class="product__cover-img"
           />
-          <img src="assets/images/etoile_bleu_deco.png"  alt="" class="product__cover-deco"   aria-hidden="true" />
-          <img src="assets/images/etoile_jaune_deco.png" alt="" class="product__cover-deco-2" aria-hidden="true" />
+          <img src="assets/images/etoile_jaune_deco.png" alt="" class="product__cover-deco product__cover-deco--star"    aria-hidden="true" />
+          <img src="assets/images/coquillage_1.png"      alt="" class="product__cover-deco product__cover-deco--shell-1" aria-hidden="true" />
+          <img src="assets/images/coquillage_2.png"      alt="" class="product__cover-deco product__cover-deco--shell-2" aria-hidden="true" />
+          <img src="assets/images/fleur_rose_deco.png"   alt="" class="product__cover-deco product__cover-deco--flower"  aria-hidden="true" />
         </div>
 
         <div class="product__info reveal reveal-delay-2">
