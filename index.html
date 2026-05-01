@@ -856,12 +856,17 @@
       flex-direction: column;
       align-items: center;
       margin-bottom: var(--s-10);
-      padding: var(--s-6) var(--s-4) var(--s-4);
+      /* extra horizontal padding so the image can overflow inward */
+      padding: 0 var(--s-2);
     }
 
+    /* The pink rectangle sits in the lower 75% of the image area */
     .product__featured__blob {
       position: absolute;
-      inset: 0;
+      bottom: 52px; /* leave space for the label below */
+      left: 8%;
+      right: 8%;
+      top: 15%; /* image overflows above this */
       background: oklch(91% 0.04 12);
       border-radius: 24px;
       z-index: 0;
@@ -870,10 +875,10 @@
     .product__featured__img-wrap {
       position: relative;
       z-index: 1;
-      width: 100%;
-      max-width: 480px;
+      width: 110%; /* slightly wider than blob so image spills on sides */
+      max-width: 520px;
       border-radius: var(--r-lg);
-      overflow: hidden;
+      overflow: visible;
     }
 
     .product__featured__img-wrap img {
@@ -881,12 +886,13 @@
       height: auto;
       display: block;
       border-radius: var(--r-lg);
+      filter: drop-shadow(0 8px 24px oklch(60% 0.08 12 / 0.18));
     }
 
     .product__featured__label {
       position: relative;
       z-index: 1;
-      margin-top: var(--s-5);
+      margin-top: var(--s-4);
       font-family: var(--font-body);
       font-weight: 800;
       font-size: clamp(1.2rem, 4vw, 1.6rem);
@@ -903,8 +909,8 @@
       z-index: 2;
       pointer-events: none;
     }
-    .product__featured__sparkle--1 { width: 28px; top: 8%; right: 6%; }
-    .product__featured__sparkle--2 { width: 18px; top: 20%; right: 3%; }
+    .product__featured__sparkle--1 { width: 28px; top: 12%; right: 4%; }
+    .product__featured__sparkle--2 { width: 18px; top: 26%; right: 1%; }
     .product__featured__sparkle--3 { width: 16px; bottom: 28%; right: 8%; }
 
     /* Promesses lifestyle photo */
