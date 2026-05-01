@@ -852,6 +852,15 @@
         margin-left: 0;
         margin-right: 0;
       }
+      .coloring-gallery {
+        grid-template-columns: 1fr !important;
+      }
+      .coloring-card__desc {
+        display: block;
+      }
+      .coloring-card__label {
+        transform: translateY(0);
+      }
     }
 
     /* Featured product card */
@@ -922,6 +931,20 @@
     }
     .coloring-card--wide img {
       aspect-ratio: 2/1;
+    }
+
+    .coloring-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+
+    .coloring-card__desc {
+      display: none;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--brown-light);
+      line-height: 1.5;
     }
 
     /* ============================================================
@@ -2144,13 +2167,19 @@
       </div>
 
       <div class="coloring-gallery" style="grid-template-columns: 1fr 1fr;">
-        <div class="coloring-card color-trigger reveal">
-          <img src="assets/images/carnet/coloriage-requin.jpg" alt="Coloriage — Requin Câlin, plongée avec Nana & Jee" />
-          <div class="coloring-card__label">Le Requin Câlin 🦈</div>
+        <div class="coloring-item">
+          <div class="coloring-card color-trigger reveal">
+            <img src="assets/images/carnet/coloriage-requin.jpg" alt="Coloriage — Requin Câlin, plongée avec Nana & Jee" />
+            <div class="coloring-card__label">Le Requin Câlin 🦈</div>
+          </div>
+          <p class="coloring-card__desc">Plonge dans les fonds marins avec Nana & Jee le temps d'une page toute douce 🌊</p>
         </div>
-        <div class="coloring-card color-trigger reveal reveal-delay-1">
-          <img src="assets/images/carnet/coloriage-goeland.jpg" alt="Coloriage — Le Goéland Chapardeur à la plage" />
-          <div class="coloring-card__label">Le Goéland Chapardeur 🐦</div>
+        <div class="coloring-item">
+          <div class="coloring-card color-trigger reveal reveal-delay-1">
+            <img src="assets/images/carnet/coloriage-goeland.jpg" alt="Coloriage — Le Goéland Chapardeur à la plage" />
+            <div class="coloring-card__label">Le Goéland Chapardeur 🐦</div>
+          </div>
+          <p class="coloring-card__desc">Une journée à la plage sous le soleil, les pieds dans le sable ☀️</p>
         </div>
       </div>
 
