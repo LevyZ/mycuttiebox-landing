@@ -850,68 +850,80 @@
     }
 
     /* Featured product card */
-    .product__featured {
-      position: relative;
+    /* ── Coffret featured card ────────────────────────────── */
+    .coffret {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: var(--s-5);
       margin-bottom: var(--s-10);
-      /* extra horizontal padding so the image can overflow inward */
-      padding: 0 var(--s-2);
     }
 
-    /* The pink rectangle sits in the lower 75% of the image area */
-    .product__featured__blob {
+    /* Outer frame — photo sits here, plate is absolute inside */
+    .coffret__frame {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      /* bottom padding: lets the plate extend below the photo */
+      padding-bottom: var(--s-7);
+    }
+
+    /* The pink plate — starts partway down so photo bleeds above */
+    .coffret__plate {
       position: absolute;
-      bottom: 52px; /* leave space for the label below */
-      left: 8%;
-      right: 8%;
-      top: 15%; /* image overflows above this */
-      background: oklch(91% 0.04 12);
-      border-radius: 24px;
+      top: 22%;
+      bottom: 0;
+      left: -14px;
+      right: -14px;
+      background: oklch(91% 0.05 18);
+      border-radius: 22px;
       z-index: 0;
     }
 
-    .product__featured__img-wrap {
+    /* The photo — floats on top of the plate */
+    .coffret__img {
       position: relative;
-      z-index: 1;
-      width: 110%; /* slightly wider than blob so image spills on sides */
-      max-width: 520px;
-      border-radius: var(--r-lg);
-      overflow: visible;
-    }
-
-    .product__featured__img-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: var(--r-lg);
-      filter: drop-shadow(0 8px 24px oklch(60% 0.08 12 / 0.18));
-    }
-
-    .product__featured__label {
-      position: relative;
-      z-index: 1;
-      margin-top: var(--s-4);
-      font-family: var(--font-body);
-      font-weight: 800;
-      font-size: clamp(1.2rem, 4vw, 1.6rem);
-      color: var(--brown);
-    }
-
-    .product__featured__label span {
-      color: var(--coral);
-    }
-
-    /* sparkles */
-    .product__featured__sparkle {
-      position: absolute;
       z-index: 2;
+      width: 100%;
+      display: block;
+      border-radius: 16px;
+      transform: rotate(-1deg);
+      filter: drop-shadow(0 10px 28px oklch(50% 0.10 18 / 0.20));
+    }
+
+    /* 4-pointed stars on the right */
+    .coffret__star {
+      position: absolute;
+      z-index: 3;
       pointer-events: none;
     }
-    .product__featured__sparkle--1 { width: 28px; top: 12%; right: 4%; }
-    .product__featured__sparkle--2 { width: 18px; top: 26%; right: 1%; }
-    .product__featured__sparkle--3 { width: 16px; bottom: 28%; right: 8%; }
+    .coffret__star--a {
+      width: 32px;
+      height: 32px;
+      top: 28%;
+      right: -22px;
+      fill: var(--coral);
+    }
+    .coffret__star--b {
+      width: 20px;
+      height: 20px;
+      top: 46%;
+      right: -10px;
+      fill: oklch(96% 0.02 18);
+    }
+
+    /* Title below the frame */
+    .coffret__title {
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: clamp(1.25rem, 5vw, 1.55rem);
+      color: var(--brown);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .coffret__title span {
+      color: var(--coral);
+    }
 
     /* Promesses lifestyle photo */
     .promesses__lifestyle {
@@ -2164,17 +2176,23 @@
         </div>
       </div>
 
-      <!-- Featured product card -->
-      <div class="product__featured">
-        <div class="product__featured__blob"></div>
-        <!-- sparkles -->
-        <svg class="product__featured__sparkle product__featured__sparkle--1" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="var(--coral)"/></svg>
-        <svg class="product__featured__sparkle product__featured__sparkle--2" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="white"/></svg>
-        <svg class="product__featured__sparkle product__featured__sparkle--3" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="var(--coral)" opacity="0.5"/></svg>
-        <div class="product__featured__img-wrap">
-          <img src="assets/images/produits/boite_adulte.png" alt="La box MyCuttieBox ouverte avec tous ses éléments" />
+      <!-- Featured coffret card -->
+      <div class="coffret">
+        <div class="coffret__frame">
+          <div class="coffret__plate"></div>
+          <svg class="coffret__star coffret__star--a" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 1 L13.8 10.2 L23 12 L13.8 13.8 L12 23 L10.2 13.8 L1 12 L10.2 10.2 Z"/>
+          </svg>
+          <svg class="coffret__star coffret__star--b" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 1 L13.8 10.2 L23 12 L13.8 13.8 L12 23 L10.2 13.8 L1 12 L10.2 10.2 Z"/>
+          </svg>
+          <img
+            class="coffret__img"
+            src="assets/images/produits/boite_adulte.png"
+            alt="La box MyCuttieBox ouverte avec tout son contenu"
+          />
         </div>
-        <p class="product__featured__label">Le coffret <span>MyCuttieBox</span></p>
+        <p class="coffret__title">Le coffret <span>MyCuttieBox</span></p>
       </div>
 
       <!-- Product visuals strip -->
