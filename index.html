@@ -849,6 +849,64 @@
       }
     }
 
+    /* Featured product card */
+    .product__featured {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: var(--s-10);
+      padding: var(--s-6) var(--s-4) var(--s-4);
+    }
+
+    .product__featured__blob {
+      position: absolute;
+      inset: 0;
+      background: oklch(91% 0.04 12);
+      border-radius: 62% 38% 46% 54% / 54% 44% 56% 46%;
+      z-index: 0;
+    }
+
+    .product__featured__img-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+    }
+
+    .product__featured__img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--r-lg);
+    }
+
+    .product__featured__label {
+      position: relative;
+      z-index: 1;
+      margin-top: var(--s-5);
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      color: var(--brown);
+    }
+
+    .product__featured__label span {
+      color: var(--coral);
+    }
+
+    /* sparkles */
+    .product__featured__sparkle {
+      position: absolute;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .product__featured__sparkle--1 { width: 28px; top: 8%; right: 6%; }
+    .product__featured__sparkle--2 { width: 18px; top: 20%; right: 3%; }
+    .product__featured__sparkle--3 { width: 16px; bottom: 28%; right: 8%; }
+
     /* Promesses lifestyle photo */
     .promesses__lifestyle {
       margin-top: var(--s-6);
@@ -2100,14 +2158,21 @@
         </div>
       </div>
 
+      <!-- Featured product card -->
+      <div class="product__featured">
+        <div class="product__featured__blob"></div>
+        <!-- sparkles -->
+        <svg class="product__featured__sparkle product__featured__sparkle--1" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="var(--coral)"/></svg>
+        <svg class="product__featured__sparkle product__featured__sparkle--2" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="white"/></svg>
+        <svg class="product__featured__sparkle product__featured__sparkle--3" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" fill="var(--coral)" opacity="0.5"/></svg>
+        <div class="product__featured__img-wrap">
+          <img src="assets/images/produits/boite_adulte.png" alt="La box MyCuttieBox ouverte avec tous ses éléments" />
+        </div>
+        <p class="product__featured__label">Le coffret <span>MyCuttieBox</span></p>
+      </div>
+
       <!-- Product visuals strip -->
       <div class="product__visuals-strip">
-        <div class="product__visual-card">
-          <div class="product__visual-card__img">
-            <img src="assets/images/produits/boite_adulte.png" alt="La box MyCuttieBox ouverte avec tous ses éléments" />
-          </div>
-          <span class="product__visual-card__label">La box complète 🎀</span>
-        </div>
         <div class="product__visual-card">
           <div class="product__visual-card__img">
             <img src="assets/images/produits/box.jpg" alt="La boîte d'expédition MyCuttieBox coral" />
