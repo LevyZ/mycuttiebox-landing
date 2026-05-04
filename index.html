@@ -834,12 +834,24 @@
       height: 100%;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .vc-track img {
+    .vc-track img,
+    .vc-slide {
       min-width: 100%;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       flex-shrink: 0;
+    }
+    .vc-track img {
+      object-fit: cover;
+    }
+    .vc-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--s-5);
+      background: var(--cream-deep);
+      box-sizing: border-box;
     }
     /* Dots */
     .vc-dots {
@@ -2193,6 +2205,20 @@
             <button class="vc-dot" aria-label="Image 2"></button>
           </div>
           <span class="product__visual-card__label">La boîte 📦</span>
+        </div>
+
+        <div class="product__visual-card">
+          <div class="product__visual-card__img">
+            <div class="vc-track">
+              <img src="assets/images/produits/flat-lay.jpg" alt="Contenu complet de la box MyCuttieBox" />
+              <img src="assets/images/produits/coloriage.jpg" alt="Le coloriage MyCuttieBox" />
+            </div>
+          </div>
+          <div class="vc-dots">
+            <button class="vc-dot vc-dot--active" aria-label="Image 1"></button>
+            <button class="vc-dot" aria-label="Image 2"></button>
+          </div>
+          <span class="product__visual-card__label">Carnet de coloriage Cosy 🗒️</span>
         </div>
 
         <div class="product__visual-card">
