@@ -827,14 +827,40 @@
       aspect-ratio: 1;
       background: var(--cream-deep);
     }
-    .product__visual-card__img img {
+    /* Carrousel track */
+    .vc-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .vc-track img {
+      min-width: 100%;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
     }
-    .product__visual-card:hover .product__visual-card__img img {
-      transform: scale(1.06);
+    /* Dots */
+    .vc-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: var(--s-3);
+    }
+    .vc-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: oklch(82% 0.04 18);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .vc-dot--active {
+      background: var(--coral);
+      transform: scale(1.35);
     }
     .product__visual-card__label {
       font-size: 0.82rem;
@@ -2154,30 +2180,63 @@
 
       <!-- Product visuals strip -->
       <div class="product__visuals-strip">
+
         <div class="product__visual-card">
           <div class="product__visual-card__img">
-            <img src="assets/images/produits/box.jpg" alt="La boîte d'expédition MyCuttieBox coral" />
+            <div class="vc-track">
+              <img src="assets/images/produits/box.jpg" alt="La boîte d'expédition MyCuttieBox" />
+              <img src="assets/images/produits/boite_adulte.png" alt="La box MyCuttieBox ouverte" />
+            </div>
+          </div>
+          <div class="vc-dots">
+            <button class="vc-dot vc-dot--active" aria-label="Image 1"></button>
+            <button class="vc-dot" aria-label="Image 2"></button>
           </div>
           <span class="product__visual-card__label">La boîte 📦</span>
         </div>
+
         <div class="product__visual-card">
           <div class="product__visual-card__img">
-            <img src="assets/images/produits/bougie.jpg" alt="Bougie Cultiver le bonheur" />
+            <div class="vc-track">
+              <img src="assets/images/produits/bougie.jpg" alt="Bougie Cultiver le bonheur" />
+              <img src="assets/images/produits/flat-lay.jpg" alt="La box complète MyCuttieBox" />
+            </div>
+          </div>
+          <div class="vc-dots">
+            <button class="vc-dot vc-dot--active" aria-label="Image 1"></button>
+            <button class="vc-dot" aria-label="Image 2"></button>
           </div>
           <span class="product__visual-card__label">La bougie 🕯️</span>
         </div>
+
         <div class="product__visual-card">
           <div class="product__visual-card__img">
-            <img src="assets/images/produits/marqueur.jpg" alt="Marqueur blanc Gelly Roll Sakura" />
+            <div class="vc-track">
+              <img src="assets/images/produits/marqueur.jpg" alt="Marqueur blanc Gelly Roll Sakura" />
+              <img src="assets/images/produits/lifestyle.jpg" alt="Moment coloriage MyCuttieBox" />
+            </div>
+          </div>
+          <div class="vc-dots">
+            <button class="vc-dot vc-dot--active" aria-label="Image 1"></button>
+            <button class="vc-dot" aria-label="Image 2"></button>
           </div>
           <span class="product__visual-card__label">Le marqueur blanc ✨</span>
         </div>
+
         <div class="product__visual-card">
           <div class="product__visual-card__img">
-            <img src="assets/images/produits/flat-lay.jpg" alt="Contenu complet de la box MyCuttieBox" />
+            <div class="vc-track">
+              <img src="assets/images/produits/flat-lay.jpg" alt="Contenu complet de la box MyCuttieBox" />
+              <img src="assets/images/produits/boite_adulte.png" alt="La box MyCuttieBox ouverte" />
+            </div>
+          </div>
+          <div class="vc-dots">
+            <button class="vc-dot vc-dot--active" aria-label="Image 1"></button>
+            <button class="vc-dot" aria-label="Image 2"></button>
           </div>
           <span class="product__visual-card__label">Le tout ensemble 🎁</span>
         </div>
+
       </div>
 
       <!-- Coloring pages gallery -->
@@ -2575,6 +2634,30 @@
       });
     }, { threshold: 0.2 });
     colorCards.forEach(card => colorObs.observe(card));
+
+    // ── Mini carrousels produits ───────────────────────────────────
+    document.querySelectorAll('.product__visual-card').forEach(card => {
+      const track = card.querySelector('.vc-track');
+      const dots  = card.querySelectorAll('.vc-dot');
+      if (!track || !dots.length) return;
+
+      const goTo = (i) => {
+        track.style.transform = `translateX(-${i * 100}%)`;
+        dots.forEach((d, j) => d.classList.toggle('vc-dot--active', j === i));
+      };
+
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+      // Swipe touch support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend', e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        const current = [...dots].findIndex(d => d.classList.contains('vc-dot--active'));
+        if (diff > 40 && current < dots.length - 1) goTo(current + 1);
+        if (diff < -40 && current > 0) goTo(current - 1);
+      });
+    });
 
     // ── Toast & formulaires ────────────────────────────────────────
     const toast        = document.getElementById('toast');
