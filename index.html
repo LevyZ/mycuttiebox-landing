@@ -740,6 +740,16 @@
       margin-bottom: var(--s-5);
     }
 
+    .product__mini-desc {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--brown-light);
+      line-height: 1.65;
+      margin-top: calc(-1 * var(--s-3));
+      margin-bottom: var(--s-5);
+      max-width: 38ch;
+    }
+
     .product__desc {
       font-size: 1rem;
       color: var(--brown-light);
@@ -2120,11 +2130,14 @@
     <div class="product__inner">
 
       <div class="product__header">
-        <span class="section-label reveal">Premier produit</span>
+        <img src="assets/images/logo.png" alt="MyCuttieBox" class="product__title-logo" />
         <h2 class="section-title reveal reveal-delay-1">
           Découvre la première box<br/>
-          <img src="assets/images/logo.png" alt="MyCuttieBox" class="product__title-logo" />
         </h2>
+<!--        <span class="section-label reveal">La créatrice</span>-->
+        <span class="product__tag">Édition 1</span>
+        <h3 class="product__title">Box Cosy (12 - 30 +)</h3>
+        <p class="product__mini-desc">Un moment cosy tout doux, à colorier à son rythme ✨ Coloriages kawaii, bougie d'ambiance &amp; goodies — pour se faire un petit cadeau sans culpabilité.</p>
       </div>
 
       <div class="product__showcase">
