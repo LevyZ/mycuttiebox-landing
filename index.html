@@ -785,20 +785,37 @@
       margin-bottom: var(--s-4);
     }
 
-    .product__benefits-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
+    .product__benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: var(--s-3);
     }
 
-    .product__benefits-list li {
+    .product__benefit-card {
+      border-radius: var(--r-md);
+      padding: var(--s-4) var(--s-4);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+
+    .product__benefit-card--pink     { background: oklch(93% 0.04 10); }
+    .product__benefit-card--mint     { background: oklch(93% 0.04 165); }
+    .product__benefit-card--peach    { background: oklch(93% 0.05 55); }
+    .product__benefit-card--lavender { background: oklch(92% 0.04 300); }
+
+    .product__benefit-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .product__benefit-card p {
       font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--brown-light);
-      line-height: 1.5;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.4;
+      margin: 0;
     }
 
     .product__contents {
@@ -2154,12 +2171,24 @@
 
         <div class="product__benefits">
           <p class="product__benefits-title">Plus qu'une box : un vrai moment pour toi</p>
-          <ul class="product__benefits-list">
-            <li>🩷 16 moments pour décrocher mentalement</li>
-            <li>🩷 Ambiance cocoon immédiate</li>
-            <li>🩷 Activité sans écran prête à utiliser</li>
-            <li>🩷 Cadeau original à s'offrir</li>
-          </ul>
+          <div class="product__benefits-grid">
+            <div class="product__benefit-card product__benefit-card--pink">
+              <span class="product__benefit-icon">🧘</span>
+              <p>16 moments pour décrocher mentalement</p>
+            </div>
+            <div class="product__benefit-card product__benefit-card--mint">
+              <span class="product__benefit-icon">🕯️</span>
+              <p>Ambiance cocoon immédiate</p>
+            </div>
+            <div class="product__benefit-card product__benefit-card--peach">
+              <span class="product__benefit-icon">📵</span>
+              <p>Activité sans écran prête à utiliser</p>
+            </div>
+            <div class="product__benefit-card product__benefit-card--lavender">
+              <span class="product__benefit-icon">🎁</span>
+              <p>Cadeau original à s'offrir</p>
+            </div>
+          </div>
         </div>
 
         <!--  Presentation box adulte-->
