@@ -782,22 +782,28 @@
       margin-bottom: var(--s-4);
     }
 
-    .product__benefits-pills {
+    .product__benefits-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: var(--s-3);
+      flex-direction: column;
+      gap: var(--s-4);
     }
 
-    .product__benefit-pill {
+    .product__benefit-item {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
       font-family: var(--font-body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--coral);
-      background: oklch(97% 0.02 18);
-      border: 1.5px solid var(--coral);
-      border-radius: var(--r-full);
-      padding: var(--s-2) var(--s-5);
-      line-height: 1.4;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--brown-light);
+    }
+
+    .product__benefit-dash {
+      width: 20px;
+      height: 2px;
+      background: var(--coral);
+      flex-shrink: 0;
+      display: block;
     }
 
     /* kept for fallback — no longer used */
@@ -2161,11 +2167,11 @@
 
         <div class="product__benefits">
           <p class="product__benefits-title">Plus qu'une box : un vrai moment pour toi</p>
-          <div class="product__benefits-pills">
-            <span class="product__benefit-pill">🩷 16 moments pour décrocher mentalement</span>
-            <span class="product__benefit-pill">🩷 Ambiance cocoon immédiate</span>
-            <span class="product__benefit-pill">🩷 Activité sans écran prête à utiliser</span>
-            <span class="product__benefit-pill">🩷 Cadeau original à s'offrir</span>
+          <div class="product__benefits-list">
+            <div class="product__benefit-item"><span class="product__benefit-dash"></span>16 moments pour décrocher mentalement</div>
+            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Ambiance cocoon immédiate</div>
+            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Activité sans écran prête à utiliser</div>
+            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Cadeau original à s'offrir</div>
           </div>
         </div>
 
