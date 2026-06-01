@@ -782,29 +782,25 @@
       margin-bottom: var(--s-4);
     }
 
-    .product__benefits-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--s-4);
+    .product__benefits-banners {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid oklch(88% 0.05 18);
     }
 
-    .product__benefit-item {
+    .product__benefit-banner {
+      padding: var(--s-4) var(--s-5);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--brown);
       display: flex;
       align-items: center;
-      gap: var(--s-4);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--brown-light);
+      gap: var(--s-3);
     }
 
-    .product__benefit-dash {
-      width: 20px;
-      height: 2px;
-      background: var(--coral);
-      flex-shrink: 0;
-      display: block;
-    }
+    .product__benefit-banner:nth-child(odd)  { background: white; }
+    .product__benefit-banner:nth-child(even) { background: oklch(96% 0.025 18); }
 
     /* kept for fallback — no longer used */
     .product__benefits-list li {
@@ -2167,11 +2163,11 @@
 
         <div class="product__benefits">
           <p class="product__benefits-title">Plus qu'une box : un vrai moment pour toi</p>
-          <div class="product__benefits-list">
-            <div class="product__benefit-item"><span class="product__benefit-dash"></span>16 moments pour décrocher mentalement</div>
-            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Ambiance cocoon immédiate</div>
-            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Activité sans écran prête à utiliser</div>
-            <div class="product__benefit-item"><span class="product__benefit-dash"></span>Cadeau original à s'offrir</div>
+          <div class="product__benefits-banners">
+            <div class="product__benefit-banner">🧘 16 moments pour décrocher mentalement</div>
+            <div class="product__benefit-banner">🕯️ Ambiance cocoon immédiate</div>
+            <div class="product__benefit-banner">📵 Activité sans écran prête à utiliser</div>
+            <div class="product__benefit-banner">🎁 Cadeau original à s'offrir</div>
           </div>
         </div>
 
