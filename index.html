@@ -785,47 +785,30 @@
     .product__benefits-grid {
       display: flex;
       flex-direction: column;
-      gap: var(--s-3);
+      gap: var(--s-2);
     }
 
     .product__benefit-card {
-      border-radius: var(--r-full);
-      padding: var(--s-3) var(--s-5) var(--s-3) var(--s-3);
-      display: flex;
-      align-items: center;
-      gap: var(--s-4);
-      background: #fff;
-      border: 1.5px solid #f0e0e0;
-    }
-
-    .product__benefit-card--pink     { border-color: #ffc3c4; }
-    .product__benefit-card--mint     { border-color: #a1d8d3; }
-    .product__benefit-card--peach    { border-color: #fde5b8; }
-    .product__benefit-card--lavender { border-color: #ffc3c4; }
-
-    .product__benefit-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-
-    .product__benefit-card--pink     .product__benefit-icon { background: #feebee; }
-    .product__benefit-card--mint     .product__benefit-icon { background: #a1d8d3; }
-    .product__benefit-card--peach    .product__benefit-icon { background: #fde5b8; }
-    .product__benefit-card--lavender .product__benefit-icon { background: #ffc3c4; }
-
-    .product__benefit-card p {
+      background: #feebee;
+      border-radius: var(--r-sm);
+      padding: var(--s-4) var(--s-5);
       font-family: var(--font-body);
       font-size: 0.85rem;
       font-weight: 700;
       color: var(--brown);
       line-height: 1.4;
-      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+    }
+
+    .product__benefit-card::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff516d;
+      flex-shrink: 0;
     }
 
     .product__contents {
@@ -2182,22 +2165,10 @@
         <div class="product__benefits">
           <p class="product__benefits-title">Plus qu'une box : un vrai moment pour toi</p>
           <div class="product__benefits-grid">
-            <div class="product__benefit-card product__benefit-card--pink">
-              <span class="product__benefit-icon">🧘</span>
-              <p>16 moments pour décrocher mentalement</p>
-            </div>
-            <div class="product__benefit-card product__benefit-card--mint">
-              <span class="product__benefit-icon">🕯️</span>
-              <p>Ambiance cocoon immédiate</p>
-            </div>
-            <div class="product__benefit-card product__benefit-card--peach">
-              <span class="product__benefit-icon">📵</span>
-              <p>Activité sans écran prête à utiliser</p>
-            </div>
-            <div class="product__benefit-card product__benefit-card--lavender">
-              <span class="product__benefit-icon">🎁</span>
-              <p>Cadeau original à s'offrir</p>
-            </div>
+            <div class="product__benefit-card">16 moments pour décrocher mentalement</div>
+            <div class="product__benefit-card">Ambiance cocoon immédiate</div>
+            <div class="product__benefit-card">Activité sans écran prête à utiliser</div>
+            <div class="product__benefit-card">Cadeau original à s'offrir</div>
           </div>
         </div>
 
