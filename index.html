@@ -772,28 +772,35 @@
     .product__benefits {
       margin-top: var(--s-7);
       margin-bottom: var(--s-7);
-      background: oklch(97% 0.012 18);
-      border-radius: var(--r-lg);
-      padding: var(--s-5) var(--s-6);
     }
 
     .product__benefits-title {
       font-family: var(--font-body);
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--brown);
       margin-bottom: var(--s-4);
     }
 
-    .product__benefits-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+    .product__benefits-pills {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       gap: var(--s-3);
     }
 
+    .product__benefit-pill {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--coral);
+      background: oklch(97% 0.02 18);
+      border: 1.5px solid var(--coral);
+      border-radius: var(--r-full);
+      padding: var(--s-2) var(--s-5);
+      line-height: 1.4;
+    }
+
+    /* kept for fallback — no longer used */
     .product__benefits-list li {
       font-family: var(--font-body);
       font-size: 0.95rem;
@@ -2154,12 +2161,12 @@
 
         <div class="product__benefits">
           <p class="product__benefits-title">Plus qu'une box : un vrai moment pour toi</p>
-          <ul class="product__benefits-list">
-            <li>🩷 16 moments pour décrocher mentalement</li>
-            <li>🩷 Ambiance cocoon immédiate</li>
-            <li>🩷 Activité sans écran prête à utiliser</li>
-            <li>🩷 Cadeau original à s'offrir</li>
-          </ul>
+          <div class="product__benefits-pills">
+            <span class="product__benefit-pill">🩷 16 moments pour décrocher mentalement</span>
+            <span class="product__benefit-pill">🩷 Ambiance cocoon immédiate</span>
+            <span class="product__benefit-pill">🩷 Activité sans écran prête à utiliser</span>
+            <span class="product__benefit-pill">🩷 Cadeau original à s'offrir</span>
+          </div>
         </div>
 
         <!--  Presentation box adulte-->
