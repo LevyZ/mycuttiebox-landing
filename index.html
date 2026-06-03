@@ -834,6 +834,47 @@
       line-height: 1;
     }
 
+    /* ── Benefits desktop — Option 2: 4 cartes en ligne ── */
+    @media (min-width: 601px) {
+      .product__benefits-grid {
+        display: flex;
+        flex-direction: row;
+        gap: var(--s-6);
+      }
+
+      .product__benefit-card {
+        flex: 1;
+        min-height: 175px;
+        border-radius: var(--r-md);
+        padding: var(--s-6) var(--s-5);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--s-3);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Grande étoile fantôme en filigrane */
+      .product__benefit-card::before {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        font-size: 2.2rem;
+        opacity: 0.18;
+        flex-shrink: unset;
+        line-height: 1;
+      }
+
+      /* Légère rotation alternée */
+      .product__benefit-card:nth-child(odd)  { transform: rotate(-1deg); }
+      .product__benefit-card:nth-child(even) { transform: rotate(1deg); }
+
+      /* Une carte légèrement plus soutenue pour briser la monotonie */
+      .product__benefit-card:nth-child(2) { background: #fde0e4; }
+    }
+
     .product__contents {
       display: flex;
       flex-direction: column;
