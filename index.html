@@ -951,6 +951,44 @@
       }
     }
 
+    /* ── Product box desktop layout ── */
+    @media (min-width: 601px) {
+      .product__box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        gap: 0 var(--s-9);
+        align-items: start;
+        text-align: left;
+      }
+
+      /* Carousel in right col, spanning all rows */
+      .product__box .product__showcase {
+        grid-column: 2;
+        grid-row: 1 / 5;
+        display: block;
+        margin-bottom: 0;
+      }
+
+      /* Left col items */
+      .product__box .product__title    { grid-column: 1; }
+      .product__box .product__mini-desc { grid-column: 1; }
+      .product__box .product__info      { grid-column: 1; }
+      .product__box > .btn-coral        { grid-column: 1; width: auto; align-self: start; }
+
+      /* Hide the empty cover-wrap */
+      .product__box .product__cover-wrap { display: none; }
+
+      /* Carousel full width, single column, taller */
+      .product__box .product__visuals-strip {
+        grid-template-columns: 1fr;
+        margin-bottom: 0;
+      }
+      .product__box .product__visual-card__img {
+        aspect-ratio: 3 / 4;
+      }
+    }
+
     /* Featured product card */
     /* Promesses lifestyle photo */
     .promesses__lifestyle {
@@ -1813,6 +1851,12 @@
     }
 
     @media (max-width: 600px) {
+      .product__box-cta {
+        display: inline-flex !important;
+        width: 75%;
+        justify-self: center;
+      }
+
       .nav { padding: var(--s-3) var(--s-5); }
       .nav__links { display: none; }
       .nav__hamburger { display: block; }
@@ -2202,7 +2246,7 @@
         </div>
 
         <!--  Presentation box adulte-->
-        <div style="margin-top:60px;">
+        <div class="product__box" style="margin-top:60px;">
           <h3 class="product__title">Box Cosy (12-30+)</h3>
           <p class="product__mini-desc">Un moment détente tout doux, à colorier à son rythme ✨ Coloriages cosy, bougie d'ambiance &amp; goodies — pour se faire un petit cadeau sans culpabilité.</p>
           <div class="product__showcase">
@@ -2274,7 +2318,7 @@
         </div>
 
         <!--  Presentation box enfant-->
-        <div style="margin-top:60px;">
+        <div class="product__box" style="margin-top:60px;">
           <h3 class="product__title">Box kids (6-12+)</h3>
           <p class="product__mini-desc">A modifier</p>
           <div class="product__showcase">
@@ -2335,7 +2379,7 @@
               </div>
             </div>
           </div>
-          <a href="#newsletter" class="btn-coral" style="display:inline-flex; width: 75%; justify-self: center">
+          <a href="#newsletter" class="btn-coral product__box-cta">
             Être notifié·e du lancement
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
