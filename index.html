@@ -193,14 +193,25 @@
       left: 0;
       right: 0;
       z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       padding: var(--s-4) var(--s-8);
       background: oklch(97.5% 0.012 75 / 0.85);
       backdrop-filter: blur(16px) saturate(1.2);
       -webkit-backdrop-filter: blur(16px) saturate(1.2);
       transition: box-shadow 0.3s ease;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    @media (min-width: 601px) {
+      .nav__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
     }
     .nav.scrolled {
       box-shadow: 0 4px 24px oklch(37% 0.06 42 / 0.08);
@@ -1950,22 +1961,24 @@
 
   <!-- ===================== NAV ===================== -->
   <nav class="nav" id="main-nav">
-    <a href="#" class="nav__logo" aria-label="MyCuttieBox — Accueil">
-      <img src="assets/images/logo.png" alt="MyCuttieBox logo" />
-    </a>
-    <ul class="nav__links">
-      <li><a href="#promesses">La box</a></li>
-      <li><a href="#produit">Premier produit</a></li>
-      <li><a href="#createur">La créatrice</a></li>
-    </ul>
-    <a href="#newsletter" class="nav__cta">Être notifié·e ✨</a>
-    <button class="nav__hamburger" id="hamburger-btn" aria-label="Ouvrir le menu">
-      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-        <rect y="0" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
-        <rect y="6.75" width="16" height="2.5" rx="1.25" fill="var(--brown)"/>
-        <rect y="13.5" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
-      </svg>
-    </button>
+    <div class="nav__inner">
+      <a href="#" class="nav__logo" aria-label="MyCuttieBox — Accueil">
+        <img src="assets/images/logo.png" alt="MyCuttieBox logo" />
+      </a>
+      <ul class="nav__links">
+        <li><a href="#promesses">La box</a></li>
+        <li><a href="#produit">Premier produit</a></li>
+        <li><a href="#createur">La créatrice</a></li>
+      </ul>
+      <a href="#newsletter" class="nav__cta">Être notifié·e ✨</a>
+      <button class="nav__hamburger" id="hamburger-btn" aria-label="Ouvrir le menu">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+          <rect y="0" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
+          <rect y="6.75" width="16" height="2.5" rx="1.25" fill="var(--brown)"/>
+          <rect y="13.5" width="22" height="2.5" rx="1.25" fill="var(--brown)"/>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- Mobile nav overlay -->
@@ -2172,7 +2185,7 @@
         </div>
 
         <!--  Presentation box adulte-->
-        <div style="margin-top:40px;">
+        <div style="margin-top:60px;">
           <h3 class="product__title">Box Cosy (12-30+)</h3>
           <p class="product__mini-desc">Un moment détente tout doux, à colorier à son rythme ✨ Coloriages cosy, bougie d'ambiance &amp; goodies — pour se faire un petit cadeau sans culpabilité.</p>
           <div class="product__showcase">
@@ -2244,7 +2257,7 @@
         </div>
 
         <!--  Presentation box enfant-->
-        <div style="margin-top:40px;">
+        <div style="margin-top:60px;">
           <h3 class="product__title">Box kids (6-12+)</h3>
           <p class="product__mini-desc">A modifier</p>
           <div class="product__showcase">
