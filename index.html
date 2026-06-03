@@ -282,12 +282,25 @@
     .hero {
       position: relative;
       min-height: 100svh;
+      padding: calc(80px + var(--s-9)) var(--s-8) var(--s-10);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero__inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding: calc(80px + var(--s-9)) var(--s-8) var(--s-10);
-      overflow: hidden;
       gap: var(--s-7);
+      width: 100%;
+    }
+
+    @media (min-width: 601px) {
+      .hero__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
     }
 
     /* Background gradient blobs */
@@ -1746,10 +1759,12 @@
       .nav__logo img { height: 64px; }
 
       .hero {
-        grid-template-columns: 1fr;
         text-align: center;
         padding-top: calc(72px + var(--s-8));
         padding-bottom: var(--s-8);
+      }
+      .hero__inner {
+        grid-template-columns: 1fr;
       }
       .hero__visual {
         order: -1;
@@ -2001,6 +2016,7 @@
     <img src="assets/images/nuage_deco.png"          alt="" class="deco deco--cloud-2"       aria-hidden="true" />
     <div class="deco deco--flower" aria-hidden="true"></div>
 
+    <div class="hero__inner">
     <div class="hero__content">
       <div class="hero__badge">
         <span class="hero__badge-dot"></span>
@@ -2052,6 +2068,7 @@
         />
       </div>
     </div>
+    </div><!-- /.hero__inner -->
 
 
   </section>
