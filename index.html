@@ -890,6 +890,49 @@
     .vc-track img {
       object-fit: cover;
     }
+
+    /* Carousel arrow buttons */
+    .vc-arrow {
+      display: none; /* mobile: hidden */
+    }
+
+    @media (min-width: 601px) {
+      .vc-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.80);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border: none;
+        cursor: pointer;
+        z-index: 10;
+        padding: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+
+      .vc-arrow--prev { left: 14px; }
+      .vc-arrow--next { right: 14px; }
+
+      .product__visual-card__img:hover .vc-arrow,
+      .vc-arrow:focus-visible {
+        opacity: 1;
+      }
+
+      .vc-arrow:hover {
+        background: rgba(255, 255, 255, 0.98);
+      }
+
+      .vc-arrow--prev:hover { transform: translateY(-50%) translateX(-2px); }
+      .vc-arrow--next:hover { transform: translateY(-50%) translateX(2px); }
+    }
     .vc-slide {
       display: flex;
       flex-direction: column;
@@ -2257,6 +2300,12 @@
             <div class="product__visuals-strip">
               <div class="product__visual-card">
                 <div class="product__visual-card__img">
+                  <button class="vc-arrow vc-arrow--prev" aria-label="Image précédente">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8 2L2 8l6 6" stroke="#ff516d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <button class="vc-arrow vc-arrow--next" aria-label="Image suivante">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M2 2l6 6-6 6" stroke="#ff516d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
                   <div class="vc-track">
                     <img src="assets/images/produits/box-produit.png" alt="Box MyCuttieBox Vacances Cosy posée sur le sable avec accessoires de plage" class="product__cover-img" />
                     <img src="assets/images/produits/box-produit-close.png" alt="Boîte MyCuttieBox fermée, emballage coral avec nuages et logo" />
@@ -2329,6 +2378,12 @@
             <div class="product__visuals-strip">
               <div class="product__visual-card">
                 <div class="product__visual-card__img">
+                  <button class="vc-arrow vc-arrow--prev" aria-label="Image précédente">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8 2L2 8l6 6" stroke="#ff516d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <button class="vc-arrow vc-arrow--next" aria-label="Image suivante">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M2 2l6 6-6 6" stroke="#ff516d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
                   <div class="vc-track">
                     <img src="assets/images/produits/box-produit-kids.png" alt="Box MyCuttieBox Kids ouverte avec tous les éléments créatifs pour enfants" class="product__cover-img"/>
                     <img src="assets/images/produits/carnet_colo.png" alt="Carnet de coloriage kawaii Vacances Cosy pour enfants" />
@@ -2801,6 +2856,18 @@
       };
 
       dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+      // Arrow buttons (desktop)
+      const prevBtn = card.querySelector('.vc-arrow--prev');
+      const nextBtn = card.querySelector('.vc-arrow--next');
+      if (prevBtn) prevBtn.addEventListener('click', () => {
+        const current = [...dots].findIndex(d => d.classList.contains('vc-dot--active'));
+        if (current > 0) goTo(current - 1);
+      });
+      if (nextBtn) nextBtn.addEventListener('click', () => {
+        const current = [...dots].findIndex(d => d.classList.contains('vc-dot--active'));
+        if (current < dots.length - 1) goTo(current + 1);
+      });
 
       // Swipe touch support
       let startX = 0;
