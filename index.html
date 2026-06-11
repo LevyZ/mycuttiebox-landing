@@ -420,9 +420,6 @@
     }
     .btn-coral:active { transform: translateY(0) scale(0.98); }
 
-    /* Mobile hero visual — hidden on desktop */
-    .hero__mobile-visual { display: none; }
-
     .hero__reassurance {
       margin-top: var(--s-5);
       font-size: 0.82rem;
@@ -2012,76 +2009,6 @@
     }
 
     @media (max-width: 600px) {
-      /* ── Hero mobile redesign ── */
-      .hero {
-        background: linear-gradient(180deg,
-          oklch(84% 0.09 18) 0%,
-          oklch(90% 0.06 18) 35%,
-          var(--cream) 80%
-        );
-        padding-top: calc(68px + var(--s-5));
-        padding-bottom: 0;
-        min-height: unset;
-        align-items: flex-start;
-        text-align: center;
-      }
-      .hero::before { display: none; }
-
-      .hero__inner { grid-template-columns: 1fr; gap: 0; }
-      .hero__badge { display: none; }
-      .hero__form  { display: none; }
-      .hero__reassurance { display: none; }
-      .hero__visual { display: none; }
-
-      .hero__headline { font-size: clamp(2.2rem, 9vw, 3rem); }
-      .hero__headline em { font-style: italic; }
-      .hero__sub {
-        font-size: 0.98rem;
-        max-width: 34ch;
-        margin: 0 auto var(--s-5);
-      }
-
-      /* Show mobile visual */
-      .hero__mobile-visual {
-        display: block;
-        width: 100%;
-        padding: 0 var(--s-4) var(--s-7);
-      }
-      .hero__mobile-img-wrap {
-        position: relative;
-        width: 100%;
-        padding-bottom: 40px;
-      }
-      .hero__mobile-box {
-        width: 70%;
-        border-radius: var(--r-lg);
-        box-shadow: 0 12px 40px oklch(63% 0.20 18 / 0.25);
-        display: block;
-      }
-      .hero__mobile-jee {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 46%;
-        z-index: 2;
-      }
-      .hero__mobile-pill {
-        position: absolute;
-        bottom: var(--s-6);
-        left: 35%;
-        transform: translateX(-50%);
-        background: var(--coral);
-        color: white;
-        font-family: var(--font-body);
-        font-size: 0.8rem;
-        font-weight: 800;
-        padding: var(--s-2) var(--s-5);
-        border-radius: var(--r-full);
-        white-space: nowrap;
-        z-index: 3;
-        box-shadow: 0 4px 14px oklch(63% 0.20 18 / 0.4);
-      }
-
       .product__box-cta {
         display: inline-flex !important;
         width: 75%;
@@ -2305,7 +2232,9 @@
       </h1>
 
       <p class="hero__sub">
-        <b>MyCuttieBox</b>, c'est ta box surprise pensée pour ralentir, souffler et t'accorder une vraie pause créative.
+        MyCuttieBox, c'est ta petite pause créative dans un monde qui ne s'arrête pas.
+        Une box <b>coloriage cosy toute mignone</b> pensée pour ralentir, retrouver ton âme d'enfant,
+        et créer sans pression — avec Nana & Jee à tes côtés.
       </p>
 
       <form class="hero__form" id="hero-form" onsubmit="handleSubmit(event, 'hero-form')">
@@ -2341,16 +2270,6 @@
         />
       </div>
     </div>
-
-    <!-- Mobile only: box + Jee visual -->
-    <div class="hero__mobile-visual" aria-hidden="true">
-      <div class="hero__mobile-img-wrap">
-        <img src="assets/images/boite_main_mcb.png" alt="MyCuttieBox — box cadeau surprise créative" class="hero__mobile-box" />
-        <img src="assets/images/jee-solo.png" alt="" class="hero__mobile-jee" />
-        <span class="hero__mobile-pill">à s'offrir ou à offrir</span>
-      </div>
-    </div>
-
     </div><!-- /.hero__inner -->
 
 
